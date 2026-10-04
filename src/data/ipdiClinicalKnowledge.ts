@@ -9,6 +9,119 @@ interface TopicRule {
 }
 
 const KNOWLEDGE_RULES: TopicRule[] = [
+  // 0. GREETINGS & CASUAL INTERACTION
+  {
+    keywords: ['halo', 'hai', 'hello', 'selamat pagi', 'selamat siang', 'selamat malam', 'siapa kamu', 'siapa anda', 'bantuan'],
+    reply: `Halo Ners! Senang dapat berdiskusi dengan Anda. Saya adalah **Asisten Ahli Klinis DialisiLearn**, siap mendampingi perawat dialisis dalam memahami konsep klinis, SOP keperawatan, dan persiapan resertifikasi berdasarkan **Modul Resertifikasi Perawat Dialisis Indonesia (PP IPDI 2021)**.
+
+Anda dapat menanyakan materi apa pun, misalnya:
+• *"Kenapa pasien sering mual dan pusing saat cuci darah?"*
+• *"Bagaimana tatalaksana kram otot intradialisis?"*
+• *"Kapan heparin harus dihentikan sebelum sesi HD selesai?"*
+• *"Apa bedanya dialiser low-flux dan high-flux?"*
+• *"Apa kriteria Rule of Six pada AV-Fistula?"*
+
+Silakan tanyakan hal yang ingin Anda diskusikan!`
+  },
+
+  // 0.1 MUAL & MUNTAH
+  {
+    keywords: ['mual', 'muntah', 'pusing', 'keringat dingin', 'enek'],
+    reply: `**Patofisiologi & Tatalaksana Mual dan Pusing saat Hemodialisis:**
+
+Keluhan mual, enek, dan pusing selama hemodialisis paling sering disebabkan oleh:
+1. **Hipotensi Intradialisis:** Terjadi akibat penarikan cairan (*ultrafiltration*) yang terlalu cepat atau melebihi laju pengisian plasma (*plasma refilling rate*), sehingga perfusi ke organ pencernaan dan otak menurun drastis.
+2. **Dialysis Disequilibrium Syndrome (DDS):** Penurunan kadar urea darah yang terlalu cepat menyebabkan gradien osmotik, di mana cairan berpindah ke sel-sel otak (*edema serebri* ringan). Sering terjadi pada inisiasi HD atau pasien dengan ureum pra-HD sangat tinggi.
+3. **Reaksi Dialiser / Reaksi Alergi Tipe A atau B:** Terjadi di 15–30 menit pertama akibat interaksi membran atau residu gas sterilisasi/asam perasetat.
+
+**Langkah Intervensi Keperawatan:**
+• Posisikan pasien datar (*flat*) atau *Trendelenburg* bila tekanan darah menurun.
+• Turunkan *Ultrafiltration Rate* (UFR) ke **0 mL/jam** untuk sementara.
+• Turunkan laju aliran darah (*Qb*) ke **100–150 mL/menit**.
+• Berikan bolus cairan kristaloid (NaCl 0,9%) **100–200 mL** secara bertahap.
+• Berikan terapi oksigen nasal kanul 2–3 L/menit bila pasien pucat atau mengeluh sesak.
+
+📚 *Rujukan: Modul IPDI 2021 - Bab 3: Asuhan Keperawatan Intra HD (Hal. 61–68)*`
+  },
+
+  // 0.2 KRAM OTOT
+  {
+    keywords: ['kram', 'kejang otot', 'spasme', 'betis'],
+    reply: `**Penyebab & Penanganan Kram Otot saat Hemodialisis:**
+
+Kram otot (terutama pada tungkai dan betis) dialami oleh 33–50% pasien dialisis, dengan penyebab utama:
+1. **Hipovolemia Akut Intravaskuler:** Akibat penarikan cairan ultrafiltrasi yang melampaui kemampuan *plasma refilling*, menyebabkan hipoperfusi dan hipoksia mikrovaskuler pada jaringan otot.
+2. **Penurunan Osmolalitas Serum yang Cepat:** Pergeseran cairan akut dari ekstraseluler ke intraseluler memicu ketidakseimbangan elektrolit transmembran otot.
+3. **Target Berat Badan Kering (BBK) Terlalu Rendah:** Target penarikan cairan terlalu agresif dari yang semestinya.
+
+**Tindakan Prioritas Perawat Dialisis:**
+• Segera **matikan ultrafiltrasi (UF = 0)**.
+• Berikan bolus salin normal (NaCl 0,9%) **100–200 mL** (atau hipertonik bila diinstruksikan dokter).
+• Lakukan pemijatan lembut (*massage*) dan peregangan (*stretching*) otot berlawanan arah kontraksi kram.
+• Kompres hangat pada area otot yang mengalami kram.
+• Evaluasi kembali penentuan Berat Badan Kering (*dry weight*) pasien untuk sesi berikutnya.
+
+📚 *Rujukan: Modul IPDI 2021 - Bab 3: Asuhan Keperawatan Intra HD (Hal. 68–70)*`
+  },
+
+  // 0.3 HEPARIN
+  {
+    keywords: ['heparin', 'antikoagulan', 'clotting', 'bekuan', 'protamin'],
+    reply: `**Manajemen Antikoagulasi Heparin pada Hemodialisis:**
+
+1. **Metode Dosis Standar (Reguler):**
+   - **Dosis Inisiasi (Bolus Awal):** 2.000–4.000 IU (atau 30–50 IU/kgBB) diberikan saat sirkulasi darah terhubung (*blood pump running*).
+   - **Dosis Pemeliharaan (*Maintenance*):** 500–1.500 IU/jam via syringe pump.
+   - **Penghentian Heparin:** Wajib dihentikan **30 hingga 60 menit sebelum sesi HD selesai** untuk memulihkan fungsi hemostasis darah sehingga perdarahan pasca-cabut jarum (*post-needle bleeding*) tidak memanjang.
+
+2. **Protokol Bebas Heparin (*Heparin-Free Dialysis*):**
+   - Diindikasikan untuk pasien dengan risiko perdarahan aktif, pascaoperasi besar < 72 jam, perdarahan saluran cerna, atau trombositopenia berat.
+   - Menggunakan dialiser dengan *priming* saline-heparin (dibilas bersih NaCl 0,9% 1.000–2.000 mL sebelum koneksi), laju darah (*Qb*) tinggi **250–300 mL/menit**, dan pembilasan berkala (*periodic saline flush*) 100 mL NaCl 0,9% setiap 15–30 menit.
+
+3. **Antidot Pembalik:**
+   - Bila terjadi overdosis heparin atau perdarahan hebat, gunakan **Protamin Sulfat** (1 mg protamin menetralkan sekitar 100 IU heparin).
+
+📚 *Rujukan: Modul IPDI 2021 - Bab 3: Asuhan Keperawatan Intra HD (Hal. 55–60)*`
+  },
+
+  // 0.4 BERAT BADAN KERING
+  {
+    keywords: ['berat badan kering', 'bb kering', 'dry weight', 'idwg', 'tarikan', 'uf goal'],
+    reply: `**Konsep Berat Badan Kering (*Dry Weight*) & Interdialytic Weight Gain (IDWG):**
+
+1. **Definisi Berat Badan Kering (BBK):**
+   Berat badan terendah yang dapat dicapai pasien pada akhir sesi hemodialisis tanpa menimbulkan keluhan hipotensi, kram otot, mual, atau rasa melayang, serta tanpa adanya tanda kelebihan cairan (edema perifer, ronki basah basal, efusi pleura, atau distensi vena jugularis / JVP meningkat).
+
+2. **Batas Kenaikan BB Antar-Dialisis (IDWG):**
+   - Target aman IDWG: **< 3% – 5%** dari BB kering pasien.
+   - Contoh: Pasien dengan BBK 50 kg dianjurkan kenaikan BB maksimal 1,5 – 2,5 kg antar-sesi HD.
+   - Kenaikan IDWG > 5% sangat berisiko memicu *acute pulmonary edema* (edema paru akut), kardiomegali, dan hipertrofi ventrikel kiri (LVH).
+
+3. **Perhitungan UF Goal Sesi HD:**
+   $$\\text{UF Goal} = (\\text{BB Pre-HD} - \\text{BB Kering}) + \\text{Intake Selama HD} + \\text{Cairan Bilas Akhir (200 mL)}$$
+
+📚 *Rujukan: Modul IPDI 2021 - Bab 2 & 6: Asuhan Pre HD & Masalah Jangka Panjang (Hal. 38 & 115)*`
+  },
+
+  // 0.5 LOW FLUX VS HIGH FLUX
+  {
+    keywords: ['high flux', 'low flux', 'membran', 'kuf', 'beta-2', 'beta 2'],
+    reply: `**Perbedaan Dialiser Low-Flux vs High-Flux menurut Modul IPDI:**
+
+1. **Koefisien Ultrafiltrasi (Kuf):**
+   • **Low-Flux:** Nilai $Kuf < 8\\text{ mL/jam/mmHg}$. Memerlukan kontrol tekanan transmembran (TMP) untuk mengeluarkan cairan.
+   • **High-Flux:** Nilai $Kuf \\ge 15–20\\text{ mL/jam/mmHg}$ (bahkan hingga 40–80). Sangat permeabel terhadap air sehingga wajib menggunakan mesin HD dengan sistem kontrol volumetrik ultrafiltrasi presisi (*ultrafiltration controller*) untuk mencegah penarikan cairan liar / berlebihan.
+
+2. **Klirens Molekul Sedang (*Middle Molecules*):**
+   • **Low-Flux:** Hanya efektif mengeliminasi molekul kecil (Ureum 60 Da, Kreatinin 113 Da). Tidak dapat menembus molekul sedang.
+   • **High-Flux:** Mampu mengeliminasi molekul sedang berukuran hingga 12.000–25.000 Da, khususnya **Beta-2 Mikroglobulin (11.800 Da)**. Hal ini sangat krusial mencegah komplikasi jangka panjang *Dialysis-Related Amyloidosis (DRA)*, sindrom lorong karpal (*carpal tunnel syndrome*), dan pruritus uremik.
+
+3. **Risiko Backfiltration:**
+   • Pada dialiser *high-flux*, perbedaan tekanan di sepanjang kompartemen dapat memicu aliran balik cairan dialisat ke dalam darah (*backfiltration*). Oleh karena itu, dialiser *high-flux* **wajib menggunakan dialisat murni / ultrapure water (< 0,1 CFU/mL dan < 0,03 EU/mL endotoksin)** untuk mencegah sindrom pirogenik.
+
+📚 *Rujukan: Modul IPDI 2021 - Bab 3 & 8: Intra HD & Dialiser Proses Ulang (Hal. 52 & 168)*`
+  },
+
   // 1. RULE OF SIX & AKSES VASKULER AV-FISTULA
   {
     keywords: ['rule of six', 'rule of 6', 'avf', 'av-fistula', 'fistula', 'cimino', 'kanulasi', 'rope ladder', 'buttonhole'],

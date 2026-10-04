@@ -78,9 +78,10 @@ export const AiChatDrawer: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Build history
+      // Build clean history excluding welcome & any old fallback messages
       const history = messages
-        .filter((m) => m.id !== 'welcome')
+        .filter((m) => m.id !== 'welcome' && !m.source?.includes('fallback') && !m.source?.includes('engine') && !m.text.includes('Sesuai panduan'))
+        .slice(-4)
         .map((m) => ({
           role: m.role === 'user' ? 'user' : 'model',
           text: m.text,
