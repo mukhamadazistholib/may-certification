@@ -167,12 +167,12 @@ export const ChapterDetail: React.FC<ChapterDetailProps> = ({
               {isAudioPlaying ? (
                 <>
                   <VolumeX className="w-4 h-4" />
-                  <span>Hentikan Audio Voice</span>
+                  <span>Hentikan Suara</span>
                 </>
               ) : (
                 <>
                   <Volume2 className="w-4 h-4 animate-bounce" />
-                  <span>Play Voice (Narasi Audio Bab)</span>
+                  <span>Putar Materi Inti Wajib Diingat (Voice)</span>
                 </>
               )}
             </button>
@@ -276,8 +276,8 @@ export const ChapterDetail: React.FC<ChapterDetailProps> = ({
               <Volume2 className="w-5 h-5" />
             </div>
             <div className="flex-1 text-xs sm:text-sm text-teal-950 leading-relaxed">
-              <h4 className="font-bold text-teal-900 mb-1">Rangkuman Suara Bab Ini (Audio Script):</h4>
-              <p className="text-teal-800 italic">{chapter.voiceSummary}</p>
+              <h4 className="font-bold text-teal-900 mb-1">Materi Wajib Diingat (Audio Voice Narasi):</h4>
+              <p className="text-teal-900 font-medium leading-relaxed">{chapter.voiceSummary}</p>
             </div>
           </div>
 
