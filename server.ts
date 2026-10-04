@@ -120,6 +120,115 @@ Sediakan 4 pilihan jawaban (A, B, C, D) dan berikan penjelasan rasional klinis l
   });
 });
 
+// Dedicated Clinical Chatbot Endpoint strictly bounded by the IPDI 2021 Module
+app.post('/api/chat-ai', async (req, res) => {
+  try {
+    const { message, history = [], chapterId } = req.body;
+
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({ success: false, message: 'Pesan pertanyaan wajib diisi.' });
+    }
+
+    const ipdiKnowledgeBase = Object.entries(CHAPTER_CONTEXTS)
+      .map(([k, v]) => `[BAB ${k}] ${v}`)
+      .join('\n\n');
+
+    const systemInstruction = `Anda adalah "Asisten Ahli Klinis Dialisis IPDI" (Ikatan Perawat Dialisis Indonesia).
+Peran Anda adalah membantu perawat dialisis memahami konsep, prosedur asuhan keperawatan, tabel nilai kritis, dan pedoman resertifikasi perawat dialisis.
+
+BATASAN KETAT RUANG LINGKUP (STRICT BOUNDARY):
+1. Anda HANYA diperkenankan menjawab pertanyaan yang berkaitan langsung dengan materi "Modul Resertifikasi Perawat Dialisis Indonesia PP IPDI 2021" yang mencakup 9 Bab berikut:
+${ipdiKnowledgeBase}
+
+2. ATURAN PENOLAKAN PERTANYAAN DI LUAR MODUL:
+Jika pengguna menanyakan topik di luar dialisis, ginjal, keperawatan nefrologi, atau di luar cakupan 9 Bab modul IPDI di atas (contoh: topik politik, resep masakan, koding/teknologi umum, otomotif, penyakit organ lain yang tidak terkait ginjal/dialisis, lelucon, atau pengetahuan umum), Anda WAJIB MENOLAK SECARA RAMAH DAN MENGARAHKAN KEMBALI, contoh:
+"Mohon maaf, sebagai Asisten Khusus Modul IPDI, saya hanya dapat menjawab pertanyaan seputar materi hemodialisis, CAPD, akses vaskuler, komplikasi dialisis, dan pengolahan air sesuai Modul Resertifikasi Perawat Dialisis Indonesia PP IPDI 2021. Silakan ajukan pertanyaan seputar materi dialisis."
+
+3. FORMAT JAWABAN:
+- Gunakan bahasa Indonesia profesional keperawatan klinis.
+- Sajikan jawaban yang terstruktur (gunakan poin/bullet bila perlu).
+- Jelaskan rasional patofisiologis dan tindakan keperawatan yang tepat.
+- Selalu sertakan rujukan bab modul terkait di akhir jawaban (contoh: "📚 Rujukan: Modul IPDI 2021 - Bab 3: Asuhan Keperawatan Intra HD").`;
+
+    // Construct conversation contents
+    const contents: any[] = [];
+    if (Array.isArray(history) && history.length > 0) {
+      for (const item of history.slice(-6)) {
+        contents.push({
+          role: item.role === 'user' ? 'user' : 'model',
+          parts: [{ text: item.text }],
+        });
+      }
+    }
+    contents.push({
+      role: 'user',
+      parts: [{ text: message }],
+    });
+
+    try {
+      const response = await Promise.race([
+        ai.models.generateContent({
+          model: 'gemini-3.8-flash',
+          contents,
+          config: {
+            systemInstruction,
+            temperature: 0.5,
+          },
+        }),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout 3s')), 3000))
+      ]) as any;
+
+      const reply = response?.text;
+      if (reply) {
+        return res.json({
+          success: true,
+          source: 'gemini-3.8-flash',
+          reply: reply.trim(),
+        });
+      }
+    } catch (apiErr: any) {
+      console.warn('Chat AI Gemini live call transient failure:', apiErr?.message || apiErr);
+    }
+
+    // Smart contextual fallback response if live model experiences high demand
+    const query = message.toLowerCase();
+    let smartReply = '';
+
+    const isNonMedical = /resep|masak|bakar|goreng|politik|pemilu|game|film|musik|otomotif|motor|mobil|cuaca|koding|javascript|python/.test(query);
+
+    if (isNonMedical) {
+      smartReply = 'Mohon maaf Ners, sebagai Asisten Khusus Modul IPDI, saya hanya dapat menjawab pertanyaan seputar materi hemodialisis, CAPD, akses vaskuler, komplikasi dialisis, dan keselamatan pasien sesuai Modul Resertifikasi Perawat Dialisis Indonesia PP IPDI 2021.\n\nSilakan ajukan pertanyaan seputar materi dialisis atau pilih salah satu topik modul yang tersedia.';
+    } else if (query.includes('durant') || query.includes('emboli')) {
+      smartReply = 'Posisi Durant adalah tindakan darurat pada emboli udara intradialisis: Pasien dibaringkan miring ke sisi kiri tubuh dengan posisi kepala lebih rendah dari badan (Trendelenburg miring kiri). Tujuannya adalah memerangkap gelembung udara di apeks ventrikel kanan sehingga mencegah udara menyumbat arteri pulmonalis (air lock) yang mematikan.\n\n📚 Rujukan: Modul IPDI 2021 - Bab 3: Asuhan Keperawatan Intra HD (Hal. 71)';
+    } else if (query.includes('rule of six') || query.includes('rule of 6') || query.includes('avf') || query.includes('fistula')) {
+      smartReply = 'Rule of Six KDOQI untuk AV-Fistula yang siap dikanulasi:\n1. Usia fistula minimal 6 minggu pascaoperasi.\n2. Diameter lumen vena minimal 6 mm.\n3. Kedalaman vena kurang dari 6 mm dari permukaan kulit.\n4. Aliran darah (blood flow) minimal 600 mL/menit.\n5. Panjang segmen vena yang lurus minimal 6 inci (15 cm).\n\n📚 Rujukan: Modul IPDI 2021 - Bab 2: Asuhan Keperawatan Pre HD (Hal. 42 & 46)';
+    } else if (query.includes('peritonitis') || query.includes('capd')) {
+      smartReply = 'Diagnosis Peritonitis pada CAPD ditegakkan jika memenuhi minimal 2 dari 3 kriteria:\n1. Cairan dialisat buangan keruh (cloudy effluent).\n2. Nyeri perut tekan atau nyeri lepas (abdominal pain).\n3. Hitung leukosit cairan dialisat > 100/µL dengan dominasi neutrofil (PMN) > 50%.\nKuman penyebab tersering adalah Escherichia coli (40%) dan Staphylococcus.\n\n📚 Rujukan: Modul IPDI 2021 - Bab 7: Continuous Ambulatory Peritoneal Dialysis (Hal. 153 & 157)';
+    } else if (query.includes('reprocessing') || query.includes('tcv') || query.includes('afkir')) {
+      smartReply = 'Dialiser proses ulang (reprocessing) wajib diafkir (dibuang) jika:\n1. Penurunan Total Cell Volume (TCV) > 20% dari volume awal (TCV sisa < 80%).\n2. Uji kebocoran membran gagal (tekanan 1-2 bar selama 1 menit turun).\n3. Pasien terdiagnosis sepsis atau Hepatitis B (HBsAg positif) - kontraindikasi mutlak reuse.\n4. Kerusakan fisik pada serat, header, atau kompartemen dialiser.\n\n📚 Rujukan: Modul IPDI 2021 - Bab 8: Dialiser Proses Ulang (Hal. 170-176)';
+    } else if (query.includes('kt/v') || query.includes('urr') || query.includes('adekuasi')) {
+      smartReply = 'Target adekuasi hemodialisis menurut pedoman:\n• KDOQI (HD 3x/minggu selama 4 jam): spKt/V minimal 1,4 atau URR minimal 70% (stdKt/V mingguan ≥ 2,0).\n• PERNEFRI (HD 2x/minggu selama 5 jam): Kt/V target 1,8 atau URR target 80%.\nProtokol sampling ureum post-HD: turunkan Qb ke 100 mL/menit selama 10-20 detik dengan UF=0, ambil dari jalur arteri (ABL).\n\n📚 Rujukan: Modul IPDI 2021 - Bab 4: Asuhan Keperawatan Post HD (Hal. 76-84)';
+    } else if (query.includes('aami') || query.includes('water') || query.includes('air') || query.includes('ebct')) {
+      smartReply = 'Baku Mutu Water Treatment AAMI untuk Hemodialisis:\n• Bakteri: < 200 CFU/mL (tindakan korektif jika > 50 CFU/mL). Air ultrapure < 0,1 CFU/mL.\n• Endotoksin: < 2,0 EU/mL (air ultrapure < 0,03 EU/mL).\n• EBCT (Empty Bed Contact Time) tangki karbon aktif: minimal 10 menit (klorin total < 0,1 ppm).\n• Pelembut air (softener): mengeliminasi ion Ca2+ dan Mg2+ untuk mencegah kerak RO dan hard water syndrome.\n\n📚 Rujukan: Modul IPDI 2021 - Bab 9: Pengolahan Air Hemodialisa (Hal. 181-192)';
+    } else {
+      smartReply = 'Sesuai Modul Resertifikasi Perawat Dialisis Indonesia (PP IPDI 2021), seluruh asuhan keperawatan dialisis berfokus pada keselamatan pasien, pencegahan komplikasi teknis & non-teknis, serta pencapaian target adekuasi dialisis yang optimal.\n\nSilakan ajukan pertanyaan spesifik mengenai materi 9 Bab (Anatomi & TPG, Asuhan Pre, Intra, Post HD, SLED/PIRRT, Masalah Jangka Panjang, CAPD, Reprocessing Dialiser, atau Water Treatment AAMI).\n\n📚 Rujukan: Modul Resertifikasi Perawat Dialisis IPDI 2021';
+    }
+
+    return res.json({
+      success: true,
+      source: 'smart-ipdi-knowledge-base',
+      reply: smartReply,
+    });
+  } catch (error: any) {
+    console.error('Error in /api/chat-ai:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Gagal memproses pertanyaan AI.',
+      error: error?.message || String(error),
+    });
+  }
+});
+
 // In development, mount Vite middlewares; in production serve dist
 if (process.env.NODE_ENV !== 'production') {
   const { createServer: createViteServer } = await import('vite');

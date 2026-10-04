@@ -51,7 +51,7 @@ export const ChapterList: React.FC<ChapterListProps> = ({
   return (
     <div className="space-y-6">
       {/* Search & Filter Header Bar */}
-      <div className="bg-white p-4 sm:p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+      <div className="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 transition-colors">
         {/* Search Input */}
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -60,12 +60,12 @@ export const ChapterList: React.FC<ChapterListProps> = ({
             placeholder="Cari materi, konsep, istilah klinis (mis: Heparin, Rule of 6, TCV, Peritonitis, Kloramin)..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-teal-500 placeholder:text-slate-400"
+            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-2xl text-xs sm:text-sm focus:outline-teal-500 placeholder:text-slate-400"
           />
           {searchTerm && (
             <button
               onClick={() => setSearchTerm('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600 font-semibold"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-semibold cursor-pointer"
             >
               Clear
             </button>
@@ -73,13 +73,13 @@ export const ChapterList: React.FC<ChapterListProps> = ({
         </div>
 
         {/* Filter Pills */}
-        <div className="flex items-center overflow-x-auto pb-1 md:pb-0 gap-1.5 text-xs font-semibold shrink-0">
+        <div className="flex items-center overflow-x-auto pb-1 md:pb-0 gap-1.5 text-xs font-semibold shrink-0 scrollbar-none">
           <button
             onClick={() => setFilterCategory('all')}
             className={`px-3 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
               filterCategory === 'all'
                 ? 'bg-teal-600 text-white shadow-xs'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
             Semua (9 Bab)
@@ -89,7 +89,7 @@ export const ChapterList: React.FC<ChapterListProps> = ({
             className={`px-3 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
               filterCategory === 'dasar'
                 ? 'bg-teal-600 text-white shadow-xs'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
             Dasar & Pre-HD
@@ -99,7 +99,7 @@ export const ChapterList: React.FC<ChapterListProps> = ({
             className={`px-3 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
               filterCategory === 'akep'
                 ? 'bg-teal-600 text-white shadow-xs'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
             Intra & Post-HD
@@ -109,17 +109,17 @@ export const ChapterList: React.FC<ChapterListProps> = ({
             className={`px-3 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
               filterCategory === 'komplikasi'
                 ? 'bg-teal-600 text-white shadow-xs'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
-            SLED & Jangka Panjang
+            HD Khusus & Kronik
           </button>
           <button
             onClick={() => setFilterCategory('capd_wt')}
             className={`px-3 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
               filterCategory === 'capd_wt'
                 ? 'bg-teal-600 text-white shadow-xs'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
             CAPD, Reuse & Water
@@ -129,7 +129,7 @@ export const ChapterList: React.FC<ChapterListProps> = ({
             className={`px-3 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap flex items-center space-x-1 ${
               filterCategory === 'bookmarked'
                 ? 'bg-amber-600 text-white shadow-xs'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
             <Bookmark className="w-3.5 h-3.5" />
@@ -150,16 +150,16 @@ export const ChapterList: React.FC<ChapterListProps> = ({
           return (
             <div
               key={chapter.id}
-              className="bg-white rounded-3xl border border-slate-200 shadow-xs hover:shadow-md hover:border-teal-500/50 transition-all flex flex-col justify-between overflow-hidden group"
+              className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-teal-500/50 dark:hover:border-teal-500/50 transition-all flex flex-col justify-between overflow-hidden group"
             >
               <div className="p-6">
                 {/* Top Badge & Page Range */}
                 <div className="flex items-center justify-between gap-2 mb-3">
                   <div className="flex items-center space-x-2">
-                    <span className="font-mono text-xs font-bold px-2.5 py-0.5 rounded-lg bg-teal-50 text-teal-800 border border-teal-200">
+                    <span className="font-mono text-xs font-bold px-2.5 py-0.5 rounded-lg bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
                       {chapter.romanNumeral}
                     </span>
-                    <span className="text-[11px] font-medium text-slate-500">
+                    <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">
                       {chapter.pageRange}
                     </span>
                   </div>
@@ -174,59 +174,57 @@ export const ChapterList: React.FC<ChapterListProps> = ({
                 {/* Title */}
                 <h3
                   onClick={() => onSelectChapter(chapter.id)}
-                  className="font-bold text-slate-800 text-base group-hover:text-teal-700 transition-colors cursor-pointer mb-1 leading-snug line-clamp-2"
+                  className="font-bold text-slate-800 dark:text-slate-100 text-base group-hover:text-teal-700 dark:group-hover:text-teal-400 transition-colors cursor-pointer mb-1 leading-snug line-clamp-2"
                 >
                   {chapter.title}
                 </h3>
-                <p className="text-xs text-slate-500 line-clamp-2 mb-4 leading-relaxed">
+                <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-4 leading-relaxed">
                   {chapter.subtitle}
                 </p>
 
                 {/* Status Badges */}
-                <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-100 text-[11px]">
+                <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-100 dark:border-slate-800 text-[11px]">
                   {isRead ? (
-                    <span className="inline-flex items-center text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md font-medium border border-emerald-200">
+                    <span className="inline-flex items-center text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded-md font-medium border border-emerald-200 dark:border-emerald-800">
                       <CheckCircle className="w-3 h-3 mr-1" /> Materi Selesai
                     </span>
                   ) : (
-                    <span className="text-slate-400 bg-slate-50 px-2 py-0.5 rounded-md">
+                    <span className="text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-800 px-2 py-0.5 rounded-md">
                       Belum Selesai
                     </span>
                   )}
 
                   {isPassed ? (
-                    <span className="inline-flex items-center text-teal-800 bg-teal-50 px-2 py-0.5 rounded-md font-bold border border-teal-200">
+                    <span className="inline-flex items-center text-teal-800 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/50 px-2 py-0.5 rounded-md font-bold border border-teal-200 dark:border-teal-800">
                       Kuis: {score}% (Lulus)
                     </span>
-                  ) : score !== null && score !== undefined ? (
-                    <span className="inline-flex items-center text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md font-bold border border-amber-200">
+                  ) : score !== undefined ? (
+                    <span className="text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-2 py-0.5 rounded-md">
                       Kuis: {score}%
                     </span>
                   ) : null}
 
                   {isAudio && (
-                    <span className="inline-flex items-center text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md font-medium border border-blue-200">
-                      <Volume2 className="w-3 h-3 mr-1" /> Audio Selesai
+                    <span className="inline-flex items-center text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/50 px-2 py-0.5 rounded-md">
+                      <Volume2 className="w-3 h-3 mr-1" /> Audio
                     </span>
                   )}
                 </div>
               </div>
 
-              {/* Bottom Card Action Footer */}
-              <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
-                {/* Direct Audio Play Button */}
+              {/* Action Buttons */}
+              <div className="p-4 bg-slate-50/70 dark:bg-slate-850 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
                 <button
                   onClick={() => onPlayVoiceDirect(chapter)}
-                  className="font-semibold text-slate-700 hover:text-teal-700 flex items-center space-x-1.5 transition-colors cursor-pointer py-1"
+                  className="px-3 py-2 rounded-xl text-xs font-bold text-teal-700 dark:text-teal-300 hover:bg-teal-50 dark:hover:bg-teal-950/60 border border-teal-200 dark:border-teal-800 transition-colors flex items-center space-x-1.5 cursor-pointer"
                 >
-                  <Volume2 className="w-3.5 h-3.5 text-teal-600" />
-                  <span>Play Voice</span>
+                  <Volume2 className="w-3.5 h-3.5" />
+                  <span>Dengar Rangkuman</span>
                 </button>
 
-                {/* Open Chapter */}
                 <button
                   onClick={() => onSelectChapter(chapter.id)}
-                  className="font-bold text-teal-700 hover:text-teal-900 flex items-center space-x-1 transition-colors cursor-pointer py-1"
+                  className="px-3.5 py-2 bg-slate-800 dark:bg-slate-700 hover:bg-teal-600 dark:hover:bg-teal-600 text-white rounded-xl text-xs font-bold transition-all flex items-center space-x-1 shadow-xs cursor-pointer"
                 >
                   <span>Buka Bab</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -236,16 +234,6 @@ export const ChapterList: React.FC<ChapterListProps> = ({
           );
         })}
       </div>
-
-      {filteredChapters.length === 0 && (
-        <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center">
-          <BookOpen className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <h4 className="font-bold text-slate-700 text-base">Tidak ada materi yang cocok</h4>
-          <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
-            Coba gunakan kata kunci pencarian lain atau pilih kategori Semua Bab.
-          </p>
-        </div>
-      )}
     </div>
   );
 };

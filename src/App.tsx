@@ -8,6 +8,7 @@ import { AudioPlayerBar } from './components/AudioPlayerBar';
 import { GrandExamModal } from './components/GrandExamModal';
 import { CertificateModal } from './components/CertificateModal';
 import { ProfileModal } from './components/ProfileModal';
+import { AiChatDrawer } from './components/AiChatDrawer';
 import { allChapters, getChapterById } from './data/allChapters';
 import { Chapter } from './types/dialysis';
 import { voiceService } from './services/voiceService';
@@ -62,7 +63,7 @@ export default function App() {
   const stats = calculateOverallProgress(progress);
 
   return (
-    <div className="min-h-screen bg-slate-100/70 text-slate-800 flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-100/70 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors">
       {/* Navigation Top Header */}
       <Navbar
         activeView={activeView}
@@ -152,6 +153,9 @@ export default function App() {
 
       {/* Floating Interactive Audio Player */}
       <AudioPlayerBar onChapterSelect={handleSelectChapter} />
+
+      {/* Floating AI Assistant Chat Drawer */}
+      <AiChatDrawer />
 
       {/* Grand Exam Simulation Modal */}
       <GrandExamModal
