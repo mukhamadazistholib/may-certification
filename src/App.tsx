@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Award } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { ChapterList } from './components/ChapterList';
 import { ChapterDetail } from './components/ChapterDetail';
@@ -16,7 +17,8 @@ import {
   getActiveProfile,
   getUserProgress,
   addStudyTime,
-  calculateOverallProgress
+  calculateOverallProgress,
+  updateProfile
 } from './services/storageService';
 
 export default function App() {
@@ -59,6 +61,18 @@ export default function App() {
     voiceService.play(chapter.voiceSummary, chapter.id);
   };
 
+  const handleSaveProfileFromCert = (name: string, title: string, hospital: string, nira: string) => {
+    const updated = {
+      ...user,
+      name,
+      title,
+      hospital,
+      niraOrNik: nira,
+    };
+    updateProfile(updated);
+    setUser(updated);
+  };
+
   const selectedChapter = getChapterById(selectedChapterId) || allChapters[0];
   const stats = calculateOverallProgress(progress);
 
@@ -72,6 +86,7 @@ export default function App() {
         progress={progress}
         onOpenProfile={() => setIsProfileOpen(true)}
         onOpenExam={() => setIsExamOpen(true)}
+        onOpenCertificate={() => setIsCertOpen(true)}
       />
 
       {/* Main Container */}
@@ -79,31 +94,39 @@ export default function App() {
         {activeView === 'chapters' && (
           <div className="space-y-6">
             {/* Intro Welcome Card */}
-            <div className="bg-white rounded-3xl p-5 sm:p-8 border border-slate-200 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-6">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-6">
               <div className="max-w-2xl">
-                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-3 py-1 rounded-full border border-teal-200 inline-block mb-2 sm:mb-3">
+                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-teal-700 dark:text-teal-400 bg-teal-50 dark:bg-teal-950/60 px-3 py-1 rounded-full border border-teal-200 dark:border-teal-800 inline-block mb-2 sm:mb-3">
                   Panduan Belajar Mandiri Resertifikasi IPDI
                 </span>
-                <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-2">
                   Modul Resertifikasi Perawat Dialisis Indonesia
                 </h1>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Pelajari 9 unit kompetensi klinis dialisis terstandar PP IPDI lengkap dengan pemetaan materi per bab, audio voice narasi suara interaktif, rangkuman poin kritis keselamatan pasien, kuis pemahaman, dan kalkulator klinis.
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Pelajari 9 unit kompetensi klinis dialisis terstandar PP IPDI lengkap dengan pemetaan materi per bab, audio voice narasi suara interaktif, rangkuman poin kritis keselamatan pasien, kuis pemahaman, kalkulator klinis, dan sertifikat kelulusan siap cetak (PDF).
                 </p>
               </div>
 
               <div className="flex flex-row flex-wrap sm:flex-nowrap gap-2 sm:gap-3 shrink-0">
                 <button
                   onClick={() => setActiveView('calculators')}
-                  className="flex-1 sm:flex-none px-4 py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition-colors cursor-pointer text-center"
+                  className="flex-1 sm:flex-none px-4 py-2.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer text-center"
                 >
                   Kalkulator Klinis
                 </button>
                 <button
                   onClick={() => setIsExamOpen(true)}
-                  className="flex-1 sm:flex-none px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold shadow-md transition-transform active:scale-95 cursor-pointer text-center"
+                  className="flex-1 sm:flex-none px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold shadow-md transition-transform active:scale-95 cursor-pointer text-center"
                 >
                   Simulasi Ujian
+                </button>
+                <button
+                  onClick={() => setIsCertOpen(true)}
+                  className="flex-1 sm:flex-none px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs shadow-md transition-all active:scale-95 cursor-pointer text-center flex items-center justify-center space-x-1.5"
+                  title="Buka dan cetak sertifikat kelulusan resmi dalam format PDF"
+                >
+                  <Award className="w-4 h-4 text-slate-950" />
+                  <span>Cetak Sertifikat (PDF)</span>
                 </button>
               </div>
             </div>
@@ -166,6 +189,7 @@ export default function App() {
           refreshUserAndProgress();
         }}
         onFinished={refreshUserAndProgress}
+        onOpenCertificate={() => setIsCertOpen(true)}
       />
 
       {/* Certificate Modal */}
@@ -175,6 +199,7 @@ export default function App() {
         completedDate={new Date().toISOString()}
         isOpen={isCertOpen}
         onClose={() => setIsCertOpen(false)}
+        onSaveProfileName={handleSaveProfileFromCert}
       />
 
       {/* Profile Management Modal */}

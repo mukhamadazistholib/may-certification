@@ -25,6 +25,7 @@ interface GrandExamModalProps {
   isOpen: boolean;
   onClose: () => void;
   onFinished?: () => void;
+  onOpenCertificate?: () => void;
 }
 
 export const GrandExamModal: React.FC<GrandExamModalProps> = ({
@@ -32,6 +33,7 @@ export const GrandExamModal: React.FC<GrandExamModalProps> = ({
   isOpen,
   onClose,
   onFinished,
+  onOpenCertificate,
 }) => {
   const [examType, setExamType] = useState<'standard' | 'ai'>('standard');
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
@@ -396,7 +398,7 @@ export const GrandExamModal: React.FC<GrandExamModalProps> = ({
         {/* Footer Navigation */}
         <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
           {isFinished ? (
-            <div className="w-full flex justify-between items-center">
+            <div className="w-full flex flex-wrap justify-between items-center gap-2">
               <button
                 onClick={initStandardExam}
                 className="px-4 py-2 border border-slate-200 bg-white rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 flex items-center space-x-1.5 cursor-pointer"
@@ -404,12 +406,27 @@ export const GrandExamModal: React.FC<GrandExamModalProps> = ({
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Ulangi Simulasi</span>
               </button>
-              <button
-                onClick={onClose}
-                className="px-6 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-bold cursor-pointer"
-              >
-                Tutup Review
-              </button>
+
+              <div className="flex items-center space-x-2">
+                {onOpenCertificate && (
+                  <button
+                    onClick={() => {
+                      onClose();
+                      onOpenCertificate();
+                    }}
+                    className="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 rounded-xl text-xs font-bold shadow-md flex items-center space-x-1.5 cursor-pointer"
+                  >
+                    <Award className="w-3.5 h-3.5 text-slate-950" />
+                    <span>Cetak Sertifikat (PDF)</span>
+                  </button>
+                )}
+                <button
+                  onClick={onClose}
+                  className="px-5 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-bold cursor-pointer"
+                >
+                  Tutup Review
+                </button>
+              </div>
             </div>
           ) : !isLoadingAi ? (
             <>

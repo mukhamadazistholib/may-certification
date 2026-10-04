@@ -9,7 +9,8 @@ import {
   Flame,
   ArrowRight,
   TrendingUp,
-  FileCheck2
+  FileCheck2,
+  Printer
 } from 'lucide-react';
 import { allChapters } from '../data/allChapters';
 import { UserProfile, UserProgressData } from '../types/dialysis';
@@ -69,24 +70,24 @@ export const ProgressDashboard: React.FC<ProgressDashboardProps> = ({
               {stats.overallPercentage >= 80 ? 'Sangat Siap Ujian' : 'Sedang Berjalan'}
             </span>
 
-            {/* Certificate Button if eligible */}
-            {stats.isEligibleForCertificate ? (
+            {/* Certificate & Exam Buttons */}
+            <div className="flex flex-wrap items-center gap-2 mt-3">
               <button
                 onClick={onOpenCertificate}
-                className="mt-3 px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl shadow-lg flex items-center space-x-1.5 transition-transform active:scale-95 cursor-pointer"
+                className="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs rounded-xl shadow-lg flex items-center space-x-1.5 transition-transform active:scale-95 cursor-pointer"
+                title="Cetak dan simpan sertifikat kompetensi mandiri (PDF)"
               >
                 <Award className="w-4 h-4" />
-                <span>Lihat Sertifikat Kelulusan</span>
+                <span>Cetak Sertifikat (PDF)</span>
               </button>
-            ) : (
               <button
                 onClick={onOpenExam}
-                className="mt-3 px-4 py-2 bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs rounded-xl shadow-md flex items-center space-x-1.5 transition-colors cursor-pointer"
+                className="px-4 py-2 bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs rounded-xl shadow-md flex items-center space-x-1.5 transition-colors cursor-pointer"
               >
                 <FileCheck2 className="w-4 h-4" />
-                <span>Mulai Simulasi Try Out</span>
+                <span>Simulasi Try Out</span>
               </button>
-            )}
+            </div>
           </div>
         </div>
 
@@ -151,6 +152,38 @@ export const ProgressDashboard: React.FC<ProgressDashboardProps> = ({
           </div>
           <div className="text-2xl font-bold text-slate-800">{stats.averageQuizScore}%</div>
           <span className="text-[11px] text-slate-400">Skor rata-rata per bab</span>
+        </div>
+      </div>
+
+      {/* Dedicated Ready-to-Print Certificate Feature Box */}
+      <div className="bg-gradient-to-r from-amber-500/10 via-teal-500/10 to-emerald-500/10 dark:from-amber-950/40 dark:via-teal-950/40 dark:to-emerald-950/40 rounded-3xl p-6 sm:p-7 border-2 border-amber-300 dark:border-amber-700/60 shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+        <div className="flex items-center space-x-4">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 via-amber-600 to-teal-700 text-white flex items-center justify-center shrink-0 shadow-lg border-2 border-amber-200">
+            <Award className="w-9 h-9" />
+          </div>
+          <div className="space-y-1">
+            <div className="flex items-center space-x-2">
+              <h3 className="font-serif font-black text-lg sm:text-xl text-slate-900 dark:text-white">
+                Sertifikat Kompetensi Siap Cetak (Print & PDF)
+              </h3>
+              <span className="text-[10px] bg-amber-100 dark:bg-amber-950 text-amber-900 dark:text-amber-200 border border-amber-300 dark:border-amber-700 px-2 py-0.5 rounded-full font-extrabold uppercase">
+                Fitur Aktif
+              </span>
+            </div>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
+              Diterbitkan secara digital atas nama <strong>{user.name}, {user.title}</strong> ({user.hospital}). Dokumen standar resmi A4 Landscape dengan nomor registrasi unik, segel verifikasi IPDI, dan siap langsung dicetak atau diunduh sebagai file PDF.
+            </p>
+          </div>
+        </div>
+
+        <div className="shrink-0 w-full sm:w-auto">
+          <button
+            onClick={onOpenCertificate}
+            className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm rounded-2xl shadow-lg flex items-center justify-center space-x-2 transition-all active:scale-95 cursor-pointer"
+          >
+            <Printer className="w-4 h-4" />
+            <span>Cetak / Unduh PDF Sekarang</span>
+          </button>
         </div>
       </div>
 

@@ -32,6 +32,17 @@ export const saveProfiles = (profiles: UserProfile[]) => {
   localStorage.setItem(PROFILES_STORAGE_KEY, JSON.stringify(profiles));
 };
 
+export const updateProfile = (updated: UserProfile) => {
+  const profiles = getProfiles();
+  const index = profiles.findIndex((p) => p.id === updated.id);
+  if (index >= 0) {
+    profiles[index] = updated;
+  } else {
+    profiles.push(updated);
+  }
+  saveProfiles(profiles);
+};
+
 export const getActiveProfileId = (): string => {
   const stored = localStorage.getItem(ACTIVE_PROFILE_KEY);
   if (stored) return stored;

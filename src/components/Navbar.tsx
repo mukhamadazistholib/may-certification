@@ -22,6 +22,7 @@ interface NavbarProps {
   progress: UserProgressData;
   onOpenProfile: () => void;
   onOpenExam: () => void;
+  onOpenCertificate?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -31,6 +32,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   progress,
   onOpenProfile,
   onOpenExam,
+  onOpenCertificate,
 }) => {
   const stats = calculateOverallProgress(progress);
   const { theme, toggleTheme } = useTheme();
@@ -107,6 +109,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               <FileCheck2 className="w-4 h-4" />
               <span>Simulasi Ujian</span>
             </button>
+
+            {onOpenCertificate && (
+              <button
+                onClick={onOpenCertificate}
+                className="px-3.5 py-2 rounded-xl text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/50 hover:bg-amber-100 dark:hover:bg-amber-900/60 border border-amber-200 dark:border-amber-800 transition-all flex items-center space-x-1.5 cursor-pointer ml-1 font-bold shadow-xs active:scale-95"
+                title="Cetak & Simpan Sertifikat Kelulusan Belajar Mandiri (PDF)"
+              >
+                <Award className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                <span>Sertifikat PDF</span>
+              </button>
+            )}
           </nav>
 
           {/* Right Area: Theme Toggle + Progress Pill + User Profile */}
@@ -216,6 +229,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             <FileCheck2 className="w-3.5 h-3.5" />
             <span>Ujian</span>
           </button>
+          {onOpenCertificate && (
+            <button
+              onClick={onOpenCertificate}
+              className="py-1.5 px-2 rounded-lg text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 flex items-center space-x-1 font-bold"
+            >
+              <Award className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+              <span>Sertifikat</span>
+            </button>
+          )}
         </div>
       </div>
     </header>
