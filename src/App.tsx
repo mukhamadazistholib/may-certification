@@ -74,16 +74,16 @@ export default function App() {
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-8 pb-36 sm:pb-40">
         {activeView === 'chapters' && (
           <div className="space-y-6">
             {/* Intro Welcome Card */}
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="bg-white rounded-3xl p-5 sm:p-8 border border-slate-200 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-6">
               <div className="max-w-2xl">
-                <span className="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-3 py-1 rounded-full border border-teal-200 inline-block mb-3">
+                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-3 py-1 rounded-full border border-teal-200 inline-block mb-2 sm:mb-3">
                   Panduan Belajar Mandiri Resertifikasi IPDI
                 </span>
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
                   Modul Resertifikasi Perawat Dialisis Indonesia
                 </h1>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -91,18 +91,18 @@ export default function App() {
                 </p>
               </div>
 
-              <div className="flex flex-wrap sm:flex-nowrap gap-3 shrink-0">
+              <div className="flex flex-row flex-wrap sm:flex-nowrap gap-2 sm:gap-3 shrink-0">
                 <button
                   onClick={() => setActiveView('calculators')}
-                  className="px-4 py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+                  className="flex-1 sm:flex-none px-4 py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition-colors cursor-pointer text-center"
                 >
-                  Kalkulator Klinis HD
+                  Kalkulator Klinis
                 </button>
                 <button
                   onClick={() => setIsExamOpen(true)}
-                  className="px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold shadow-md transition-transform active:scale-95 cursor-pointer"
+                  className="flex-1 sm:flex-none px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold shadow-md transition-transform active:scale-95 cursor-pointer text-center"
                 >
-                  Ikuti Simulasi Ujian
+                  Simulasi Ujian
                 </button>
               </div>
             </div>

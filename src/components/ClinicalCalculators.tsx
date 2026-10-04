@@ -40,23 +40,23 @@ export const ClinicalCalculators: React.FC = () => {
   const caXpValue = calcium * phosphorus;
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden p-6 mb-8">
-      <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+    <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden p-4 sm:p-6 mb-8">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between pb-4 border-b border-slate-100 mb-6 gap-4">
         <div className="flex items-center space-x-3">
-          <div className="p-2.5 bg-teal-50 text-teal-600 rounded-xl">
+          <div className="p-2.5 bg-teal-50 text-teal-600 rounded-xl shrink-0">
             <Calculator className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="font-bold text-slate-800 text-lg">Kalkulator Klinis Dialisis</h3>
+            <h3 className="font-bold text-slate-800 text-base sm:text-lg">Kalkulator Klinis Dialisis</h3>
             <p className="text-xs text-slate-500">Hitung otomatis parameter adekuasi, cairan, dan keselamatan pasien</p>
           </div>
         </div>
 
         {/* Tab selection */}
-        <div className="flex bg-slate-100 p-1 rounded-xl text-xs font-semibold">
+        <div className="grid grid-cols-2 sm:flex bg-slate-100 p-1 rounded-xl text-xs font-semibold gap-1">
           <button
             onClick={() => setActiveTab('urr')}
-            className={`px-3 py-1.5 rounded-lg transition-colors ${
+            className={`px-3 py-2 rounded-lg transition-colors cursor-pointer text-center ${
               activeTab === 'urr' ? 'bg-white text-teal-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -64,7 +64,7 @@ export const ClinicalCalculators: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('ufr')}
-            className={`px-3 py-1.5 rounded-lg transition-colors ${
+            className={`px-3 py-2 rounded-lg transition-colors cursor-pointer text-center ${
               activeTab === 'ufr' ? 'bg-white text-teal-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -72,7 +72,7 @@ export const ClinicalCalculators: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('cap')}
-            className={`px-3 py-1.5 rounded-lg transition-colors ${
+            className={`px-3 py-2 rounded-lg transition-colors cursor-pointer text-center ${
               activeTab === 'cap' ? 'bg-white text-teal-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -80,7 +80,7 @@ export const ClinicalCalculators: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('rule6')}
-            className={`px-3 py-1.5 rounded-lg transition-colors ${
+            className={`px-3 py-2 rounded-lg transition-colors cursor-pointer text-center ${
               activeTab === 'rule6' ? 'bg-white text-teal-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >

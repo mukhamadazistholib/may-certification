@@ -214,56 +214,56 @@ export const ChapterDetail: React.FC<ChapterDetailProps> = ({
       </div>
 
       {/* Tabs navigation */}
-      <div className="flex border-b border-slate-200 mb-6 bg-white rounded-2xl p-1.5 shadow-xs">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 border-b border-slate-200 mb-6 bg-white rounded-2xl p-1.5 shadow-xs">
         <button
           onClick={() => setActiveTab('materi')}
-          className={`flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-2 transition-all cursor-pointer ${
+          className={`py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-1.5 sm:space-x-2 transition-all cursor-pointer ${
             activeTab === 'materi'
               ? 'bg-teal-50 text-teal-800 shadow-xs'
               : 'text-slate-600 hover:text-slate-900'
           }`}
         >
-          <BookOpen className="w-4 h-4" />
-          <span>Materi Lengkap</span>
+          <BookOpen className="w-4 h-4 shrink-0" />
+          <span className="truncate">Materi</span>
         </button>
 
         <button
           onClick={() => setActiveTab('summary')}
-          className={`flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-2 transition-all cursor-pointer ${
+          className={`py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-1.5 sm:space-x-2 transition-all cursor-pointer ${
             activeTab === 'summary'
               ? 'bg-teal-50 text-teal-800 shadow-xs'
               : 'text-slate-600 hover:text-slate-900'
           }`}
         >
-          <Sparkles className="w-4 h-4 text-teal-600" />
-          <span>Poin Penting & Rumus</span>
-          <span className="bg-teal-200 text-teal-900 text-[10px] px-1.5 py-0.5 rounded-full font-bold">
+          <Sparkles className="w-4 h-4 text-teal-600 shrink-0" />
+          <span className="truncate">Poin Kunci</span>
+          <span className="bg-teal-200 text-teal-900 text-[10px] px-1.5 py-0.5 rounded-full font-bold hidden sm:inline-block">
             {chapter.keyTakeaways.length}
           </span>
         </button>
 
         <button
           onClick={() => setActiveTab('kuis')}
-          className={`flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-2 transition-all cursor-pointer ${
+          className={`py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-1.5 sm:space-x-2 transition-all cursor-pointer ${
             activeTab === 'kuis'
               ? 'bg-teal-50 text-teal-800 shadow-xs'
               : 'text-slate-600 hover:text-slate-900'
           }`}
         >
-          <HelpCircle className="w-4 h-4" />
-          <span>Kuis Bab ({chapter.quizQuestions.length})</span>
+          <HelpCircle className="w-4 h-4 shrink-0" />
+          <span className="truncate">Kuis Bab ({chapter.quizQuestions.length})</span>
         </button>
 
         <button
           onClick={() => setActiveTab('catatan')}
-          className={`flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-2 transition-all cursor-pointer ${
+          className={`py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-1.5 sm:space-x-2 transition-all cursor-pointer ${
             activeTab === 'catatan'
               ? 'bg-teal-50 text-teal-800 shadow-xs'
               : 'text-slate-600 hover:text-slate-900'
           }`}
         >
-          <FileText className="w-4 h-4" />
-          <span>Catatan Saya</span>
+          <FileText className="w-4 h-4 shrink-0" />
+          <span className="truncate">Catatan</span>
         </button>
       </div>
 
