@@ -1,0 +1,6 @@
+{
+  "name": "DialisiLearn - Modul Resertifikasi Perawat Dialisis IPDI",
+  "description": "Platform pembelajaran interaktif berbasis Modul Resertifikasi Perawat Dialisis IPDI dengan pemetaan bab, audio voice narasi, rangkuman poin penting, kuis otomatis, dan pelacakan progres personal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
