@@ -62,7 +62,7 @@ Sediakan 4 pilihan jawaban (A, B, C, D) dan berikan penjelasan rasional klinis l
   try {
     const response = await Promise.race([
       ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-3.5-flash-lite',
         contents: userPrompt,
         config: {
           systemInstruction: systemPrompt,
@@ -184,12 +184,11 @@ ${ipdiKnowledgeBase}
       parts: [{ text: message }],
     });
 
-    // Multi-model cascade: Try gemini-2.5-flash first (available quota), followed by other flash variants
+    // Fast, ultra-responsive model cascade
     const candidateModels = [
+      'gemini-3.5-flash-lite',
       'gemini-2.5-flash',
       'gemini-3.5-flash',
-      'gemini-3.1-flash-lite',
-      'gemini-flash-latest',
     ];
 
     for (const model of candidateModels) {
@@ -200,10 +199,11 @@ ${ipdiKnowledgeBase}
             contents,
             config: {
               systemInstruction,
-              temperature: 0.6,
+              temperature: 0.7,
+              maxOutputTokens: 1200,
             },
           }),
-          new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout 25s')), 25000))
+          new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout 15s')), 15000))
         ]) as any;
 
         const reply = response?.text;
@@ -219,13 +219,10 @@ ${ipdiKnowledgeBase}
       }
     }
 
-    // Instant clinical answer engine strictly grounded in IPDI 2021 module
-    const smartReply = getSmartIpdiAnswer(message);
-
-    return res.json({
-      success: true,
-      source: 'smart-ipdi-knowledge-base',
-      reply: smartReply,
+    // If all models failed, return an honest error so user can retry, rather than an unrelated static template
+    return res.status(503).json({
+      success: false,
+      message: 'Sistem AI sedang sibuk atau koneksi sedang padat. Silakan kirim ulang pertanyaan Anda.',
     });
   } catch (error: any) {
     console.error('Error in /api/chat-ai:', error);

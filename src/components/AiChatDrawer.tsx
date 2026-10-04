@@ -14,7 +14,6 @@ import {
   Copy,
   Check
 } from 'lucide-react';
-import { getSmartIpdiAnswer } from '../data/ipdiClinicalKnowledge';
 import { FormattedAiMessage } from './FormattedAiMessage';
 
 interface ChatMessage {
@@ -102,25 +101,23 @@ export const AiChatDrawer: React.FC = () => {
           id: `bot-${Date.now()}`,
           role: 'assistant',
           text: data.reply,
-          source: data.source || 'gemini-2.5-flash',
+          source: data.source || 'gemini-3.5-flash-lite',
           timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
         };
         setMessages((prev) => [...prev, botMsg]);
       } else {
-        throw new Error(data.message || 'Gagal memproses jawaban');
+        throw new Error(data.message || 'Gagal memproses jawaban dari model AI');
       }
     } catch (err: any) {
-      console.warn('Network delay or transient API unavailable, serving IPDI knowledge engine directly:', err);
-      // Instant client-side fallback: directly answers using verified IPDI clinical knowledge base
-      const smartAnswer = getSmartIpdiAnswer(text);
-      const fallbackMsg: ChatMessage = {
-        id: `bot-ans-${Date.now()}`,
+      console.error('Chat AI call error:', err);
+      const errMsg: ChatMessage = {
+        id: `err-${Date.now()}`,
         role: 'assistant',
-        text: smartAnswer,
-        source: 'smart-ipdi-engine',
+        text: `⚠️ **Gagal Menghubungi Model AI:** ${err?.message || 'Terjadi gangguan jaringan'}.\n\nSilakan periksa koneksi atau coba kirimkan kembali pertanyaan Anda. AI kami akan langsung menjawab secara dinamis.`,
+        source: 'error',
         timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
       };
-      setMessages((prev) => [...prev, fallbackMsg]);
+      setMessages((prev) => [...prev, errMsg]);
     } finally {
       setIsLoading(false);
     }
@@ -178,14 +175,15 @@ export const AiChatDrawer: React.FC = () => {
                 <div>
                   <div className="flex items-center space-x-2">
                     <h3 className="font-extrabold text-sm sm:text-base text-white">
-                      Tanya AI Modul IPDI
+                      Tanya AI Dialisis
                     </h3>
-                    <span className="text-[9px] bg-teal-400/20 text-teal-300 border border-teal-400/40 px-1.5 py-0.5 rounded font-black uppercase tracking-wider">
-                      Modul IPDI
+                    <span className="text-[9px] bg-emerald-400/20 text-emerald-300 border border-emerald-400/40 px-1.5 py-0.5 rounded font-black uppercase tracking-wider flex items-center">
+                      <Sparkles className="w-2.5 h-2.5 mr-1 text-amber-400 animate-pulse" />
+                      Live Gemini AI
                     </span>
                   </div>
                   <p className="text-[11px] text-slate-300">
-                    Konteks Jawaban Dibatasi 9 Bab Modul IPDI 2021
+                    Penalaran Klinis Dinamis Berbasis Modul IPDI 2021
                   </p>
                 </div>
               </div>
@@ -208,9 +206,9 @@ export const AiChatDrawer: React.FC = () => {
             </div>
 
             {/* Scope boundary notification banner */}
-            <div className="bg-amber-50 dark:bg-amber-950/40 border-b border-amber-200 dark:border-amber-800/40 px-4 py-2 flex items-center space-x-2 text-[11px] text-amber-900 dark:text-amber-300 font-medium">
-              <ShieldAlert className="w-4 h-4 shrink-0 text-amber-600 dark:text-amber-400" />
-              <span>Konteks AI dibatasi ketat hanya pada materi 9 Bab Modul Dialisis IPDI.</span>
+            <div className="bg-teal-50 dark:bg-teal-950/40 border-b border-teal-200 dark:border-teal-800/40 px-4 py-2 flex items-center space-x-2 text-[11px] text-teal-900 dark:text-teal-300 font-medium">
+              <Sparkles className="w-3.5 h-3.5 shrink-0 text-teal-600 dark:text-teal-400" />
+              <span>Tanyakan topik atau kasus klinis dialisis apa pun — AI menjawab secara dinamis & terformat.</span>
             </div>
 
             {/* Messages Scroll Area */}

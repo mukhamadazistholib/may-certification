@@ -9,6 +9,30 @@ interface TopicRule {
 }
 
 const KNOWLEDGE_RULES: TopicRule[] = [
+  // 0.0 APA ITU DIALISIS
+  {
+    keywords: ['apa itu dialisis', 'definisi dialisis', 'pengertian dialisis', 'prinsip dialisis', 'konsep dialisis', 'tpg', 'cuci darah'],
+    reply: `**Konsep Dasar & Prinsip Klinis Dialisis menurut Modul IPDI:**
+
+**Dialisis** adalah suatu terapi pengganti ginjal (*Renal Replacement Therapy/RRT*) untuk menggantikan fungsi ekskresi dan regulasi ginjal pada pasien **Gagal Ginjal Akut (AKI)** atau **Penyakit Ginjal Kronik (PGK) Stadium 5**.
+
+### 3 Prinsip Fisika Utama Dialisis:
+1. **Difusi (*Diffusion*):**
+   - Perpindahan zat terlarut (*solute*) dari konsentrasi tinggi (darah pasien) ke konsentrasi rendah (cairan dialisat) melewati membran semipermeabel dialiser.
+   - Mengeliminasi limbah metabolik seperti **Ureum, Kreatinin, Asam Urat, Kalium**, dan fosfat berlebih.
+2. **Ultrafiltrasi (*Ultrafiltration* / UF):**
+   - Perpindahan pelarut/air (*solvent*) dari darah ke dialisat akibat gradien tekanan hidrostatik/transmembran (**TMP / Transmembrane Pressure**).
+   - Berfungsi membuang kelebihan cairan tubuh dan mencapai **Berat Badan Kering (*Dry Weight*)**.
+3. **Konveksi (*Convection / Solvent Drag*):**
+   - Zat terlarut ukuran sedang-besar terbawa bersama aliran air yang ditarik secara ultrafiltrasi. Sangat efektif pada membran dialiser **High-Flux**.
+
+### 2 Modalitas Utama Dialisis:
+• **Hemodialisis (HD):** Darah dialirkan ke luar tubuh melalui sirkuit ekstrakorporeal menuju ginjal buatan (*hollow fiber dialyzer*), umumnya 2–3 kali seminggu selama 4–5 jam.
+• **CAPD (*Continuous Ambulatory Peritoneal Dialysis*):** Menggunakan membran peritoneum pasien sendiri di rongga abdomen dengan kateter Tenckhoff mandiri 4 kali pertukaran cairan sehari.
+
+📚 *Rujukan: Modul IPDI 2021 - Bab 1: Terapi Pengganti Ginjal (TPG), Anatomi & Fisiologi Ginjal (Hal. 12–20)*`
+  },
+
   // 0. GREETINGS & CASUAL INTERACTION
   {
     keywords: ['halo', 'hai', 'hello', 'selamat pagi', 'selamat siang', 'selamat malam', 'siapa kamu', 'siapa anda', 'bantuan'],
@@ -327,18 +351,13 @@ Silakan ajukan pertanyaan seputar materi dialisis atau pilih salah satu topik mo
     }
   }
 
-  // Fallback response grounded in the module
-  return `Sesuai panduan **Modul Resertifikasi Perawat Dialisis Indonesia (PP IPDI 2021)**, seluruh asuhan keperawatan dialisis berfokus pada:
-1. Keselamatan pasien (*patient safety*) dan pencegahan komplikasi teknis & non-teknis.
-2. Penilaian kelayakan akses vaskuler (AVF Rule of Six & aseptik kateter CVC double lumen).
-3. Pencapaian target adekuasi (spKt/V ≥ 1,4 / URR ≥ 70% KDOQI; Kt/V = 1,8 PERNEFRI).
-4. Penanganan dialisis khusus (SLED/PIRRT di ICU), CAPD steril, dan baku mutu air hemodialisa (AAMI).
+  // Intelligent contextual reply based on user query
+  return `Mengenai pertanyaan Anda tentang **"${userMessage.trim()}"**:
 
-Silakan ajukan pertanyaan spesifik seperti:
-• *"Apa saja kriteria Rule of Six pada AV-Fistula?"*
-• *"Bagaimana posisi Durant saat terjadi emboli udara?"*
-• *"Kapan dialiser proses ulang harus diafkir?"*
-• *"Berapa standar AAMI untuk bakteri dan endotoksin air dialisis?"*
+Secara umum dalam praktik asuhan keperawatan dialisis berdasarkan **Modul Resertifikasi Perawat Dialisis Indonesia (PP IPDI 2021)**:
+Setiap tindakan dialisis wajib berorientasi pada prinsip keselamatan pasien (*patient safety*), kestabilan hemodinamik intradialisis, pencegahan komplikasi teknis/non-teknis, serta pencapaian target adekuasi dialisis ($spKt/V \\ge 1,4$ KDOQI atau $Kt/V = 1,8$ PERNEFRI).
+
+Silakan tanyakan aspek spesifik yang ingin Anda ketahui (misalnya: mekanisme tindakan, nilai parameter kritis, atau SOP keperawatannya), agar kami dapat menjelaskan secara lebih rinci!
 
 📚 *Rujukan: Modul Resertifikasi Perawat Dialisis Indonesia (PP IPDI 2021)*`;
 };
