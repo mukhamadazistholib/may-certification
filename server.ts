@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { GoogleGenAI, Type } from '@google/genai';
+import { generateSmartClinicalQuestions } from './src/data/dynamicScenarioGenerator';
 
 dotenv.config();
 
@@ -39,78 +40,84 @@ const CHAPTER_CONTEXTS: Record<number, string> = {
 
 // API Endpoint to dynamically generate clinical questions grounded in the IPDI Module
 app.post('/api/generate-quiz', async (req, res) => {
-  try {
-    const { chapterId, count = 5, difficulty = 'kasus_klinis' } = req.body;
+  const { chapterId, count = 5, difficulty = 'kasus_klinis' } = req.body;
 
-    let contextScope = '';
-    if (chapterId && CHAPTER_CONTEXTS[Number(chapterId)]) {
-      contextScope = `FOKUS KHUSUS BAB ${chapterId}: ${CHAPTER_CONTEXTS[Number(chapterId)]}`;
-    } else {
-      contextScope = `LINTAS SELURUH 9 BAB MODUL IPDI 2021:\n` + Object.entries(CHAPTER_CONTEXTS).map(([k, v]) => `Bab ${k}: ${v}`).join('\n');
-    }
+  let contextScope = '';
+  if (chapterId && CHAPTER_CONTEXTS[Number(chapterId)]) {
+    contextScope = `FOKUS KHUSUS BAB ${chapterId}: ${CHAPTER_CONTEXTS[Number(chapterId)]}`;
+  } else {
+    contextScope = `LINTAS SELURUH 9 BAB MODUL IPDI 2021:\n` + Object.entries(CHAPTER_CONTEXTS).map(([k, v]) => `Bab ${k}: ${v}`).join('\n');
+  }
 
-    const systemPrompt = `Anda adalah Tim Penguji Ahli Resertifikasi Perawat Dialisis dari Pengurus Pusat Ikatan Perawat Dialisis Indonesia (PP IPDI).
-Tugas Anda adalah membuat soal kuis pilihan ganda yang bermutu tinggi, realistis, dan berfokus pada penalaran klinis perawat dialisis.
-
-ATURAN KETAT:
-1. SEMUA materi soal WAJIB berakar dan selaras 100% dengan "Modul Resertifikasi Perawat Dialisis IPDI 2021".
-2. Konteks materi yang diujikan:
+  const systemPrompt = `Anda adalah Tim Penguji Ahli Resertifikasi Perawat Dialisis dari Pengurus Pusat Ikatan Perawat Dialisis Indonesia (PP IPDI).
+Buat soal kuis pilihan ganda berbasis studi kasus klinis dialisis yang bermutu tinggi, realistis, dan berfokus pada penalaran klinis perawat.
+SEMUA materi soal WAJIB berakar 100% pada Modul Resertifikasi Perawat Dialisis IPDI 2021:
 ${contextScope}
-3. Buat soal berbasis studi kasus klinis (skenario perawat di unit hemodialisis / CAPD).
-4. Sediakan 4 pilihan jawaban (A, B, C, D) yang masuk akal dan menantang.
-5. Berikan penjelasan rasional klinis lengkap yang menjelaskan MENGAPA jawaban tersebut benar sesuai modul IPDI 2021.
-6. Cantumkan rujukan topik modul pada field referencePage.
-7. Format output HARUS berupa JSON array persis sesuai skema yang ditentukan.`;
+Sediakan 4 pilihan jawaban (A, B, C, D) dan berikan penjelasan rasional klinis lengkap.`;
 
-    const userPrompt = `Buatlah tepat ${count} butir soal pilihan ganda baru yang bervariasi dengan tingkat kesulitan ${difficulty}. Pastikan pertanyaan tidak klise dan menguji keputusan klinis penting perawat dialisis.`;
+  const userPrompt = `Buatlah tepat ${count} butir soal pilihan ganda baru dengan tingkat kesulitan ${difficulty}. Format jawaban wajib berupa JSON array.`;
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-3.8-flash',
-      contents: userPrompt,
-      config: {
-        systemInstruction: systemPrompt,
-        temperature: 0.7,
-        responseMimeType: 'application/json',
-        responseSchema: {
-          type: Type.ARRAY,
-          description: 'Daftar soal pilihan ganda kuis dialisis IPDI',
-          items: {
-            type: Type.OBJECT,
-            properties: {
-              id: { type: Type.STRING },
-              chapterId: { type: Type.INTEGER },
-              question: { type: Type.STRING },
-              options: {
-                type: Type.ARRAY,
-                items: { type: Type.STRING },
+  // Attempt live Gemini model with fast 3.5s timeout
+  try {
+    const response = await Promise.race([
+      ai.models.generateContent({
+        model: 'gemini-3.8-flash',
+        contents: userPrompt,
+        config: {
+          systemInstruction: systemPrompt,
+          temperature: 0.7,
+          responseMimeType: 'application/json',
+          responseSchema: {
+            type: Type.ARRAY,
+            description: 'Daftar soal pilihan ganda kuis dialisis IPDI',
+            items: {
+              type: Type.OBJECT,
+              properties: {
+                id: { type: Type.STRING },
+                chapterId: { type: Type.INTEGER },
+                question: { type: Type.STRING },
+                options: {
+                  type: Type.ARRAY,
+                  items: { type: Type.STRING },
+                },
+                correctIndex: { type: Type.INTEGER, description: 'Index 0, 1, 2, atau 3' },
+                explanation: { type: Type.STRING, description: 'Rasional klinis lengkap' },
+                referencePage: { type: Type.STRING, description: 'Rujukan bab/halaman modul IPDI 2021' },
               },
-              correctIndex: { type: Type.INTEGER, description: 'Index 0, 1, 2, atau 3' },
-              explanation: { type: Type.STRING, description: 'Rasional klinis lengkap' },
-              referencePage: { type: Type.STRING, description: 'Rujukan bab/halaman modul IPDI 2021' },
+              required: ['id', 'chapterId', 'question', 'options', 'correctIndex', 'explanation', 'referencePage'],
             },
-            required: ['id', 'chapterId', 'question', 'options', 'correctIndex', 'explanation', 'referencePage'],
           },
         },
-      },
-    });
+      }),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('API Timeout 3.5s')), 3500))
+    ]) as any;
 
-    const outputText = response.text || '[]';
+    const outputText = response?.text || '[]';
     const parsedQuestions = JSON.parse(outputText);
 
-    return res.json({
-      success: true,
-      source: 'gemini-3.8-flash',
-      count: parsedQuestions.length,
-      questions: parsedQuestions,
-    });
-  } catch (error: any) {
-    console.error('Error generating dynamic quiz:', error);
-    return res.status(500).json({
-      success: false,
-      message: 'Gagal men-generate soal kuis AI. Pastikan server terhubung dengan benar.',
-      error: error?.message || String(error),
-    });
+    if (Array.isArray(parsedQuestions) && parsedQuestions.length > 0) {
+      return res.json({
+        success: true,
+        source: 'gemini-3.8-flash',
+        count: parsedQuestions.length,
+        questions: parsedQuestions,
+      });
+    }
+  } catch (err: any) {
+    console.warn(`Gemini live call transient failure or 503 spike (${err?.message || err}), serving smart clinical case generator...`);
   }
+
+  // Graceful zero-failure fallback: Smart Clinical Case Generator
+  // If Google API encounters temporary 503 high demand or network timeout,
+  // we immediately serve freshly synthesized dynamic clinical scenarios!
+  const fallbackQuestions = generateSmartClinicalQuestions(Number(chapterId) || undefined, Number(count) || 5);
+
+  return res.json({
+    success: true,
+    source: 'smart-clinical-case-engine',
+    count: fallbackQuestions.length,
+    questions: fallbackQuestions,
+  });
 });
 
 // In development, mount Vite middlewares; in production serve dist

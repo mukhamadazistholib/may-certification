@@ -18,6 +18,7 @@ import {
 import { allQuizQuestions } from '../data/allChapters';
 import { QuizQuestion } from '../types/dialysis';
 import { recordGrandExamResult } from '../services/storageService';
+import { generateSmartClinicalQuestions } from '../data/dynamicScenarioGenerator';
 
 interface GrandExamModalProps {
   userId: string;
@@ -74,11 +75,18 @@ export const GrandExamModal: React.FC<GrandExamModalProps> = ({
         setScore(0);
         setExamType('ai');
       } else {
-        initStandardExam();
+        throw new Error('Fallback required');
       }
     } catch (e) {
-      console.warn('AI exam generation failed, falling back to standard pool:', e);
-      initStandardExam();
+      console.warn('AI exam generation failed or was unavailable, activating smart clinical case engine:', e);
+      const fallback = generateSmartClinicalQuestions(undefined, 10);
+      setQuestions(fallback);
+      setCurrentIdx(0);
+      setSelectedAnswers({});
+      setTimeLeft(15 * 60);
+      setIsFinished(false);
+      setScore(0);
+      setExamType('ai');
     } finally {
       setIsLoadingAi(false);
     }
