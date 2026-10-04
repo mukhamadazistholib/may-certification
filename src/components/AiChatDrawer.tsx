@@ -15,12 +15,14 @@ import {
   Check
 } from 'lucide-react';
 import { getSmartIpdiAnswer } from '../data/ipdiClinicalKnowledge';
+import { FormattedAiMessage } from './FormattedAiMessage';
 
 interface ChatMessage {
   id: string;
   role: 'user' | 'assistant';
   text: string;
   timestamp: string;
+  source?: string;
   referenceChapter?: string;
 }
 
@@ -99,6 +101,7 @@ export const AiChatDrawer: React.FC = () => {
           id: `bot-${Date.now()}`,
           role: 'assistant',
           text: data.reply,
+          source: data.source || 'gemini-2.5-flash',
           timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
         };
         setMessages((prev) => [...prev, botMsg]);
@@ -113,6 +116,7 @@ export const AiChatDrawer: React.FC = () => {
         id: `bot-ans-${Date.now()}`,
         role: 'assistant',
         text: smartAnswer,
+        source: 'smart-ipdi-engine',
         timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages((prev) => [...prev, fallbackMsg]);
@@ -225,19 +229,31 @@ export const AiChatDrawer: React.FC = () => {
                       {isBot ? <Bot className="w-4 h-4" /> : <User className="w-4 h-4" />}
                     </div>
 
-                    <div className={`max-w-[85%] group relative ${isBot ? 'text-left' : 'text-right'}`}>
+                    <div className={`max-w-[88%] group relative ${isBot ? 'text-left' : 'text-right'}`}>
                       <div
-                        className={`p-3.5 rounded-2xl leading-relaxed whitespace-pre-wrap ${
+                        className={`p-3.5 sm:p-4 rounded-2xl leading-relaxed ${
                           isBot
-                            ? 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700/60 shadow-xs'
-                            : 'bg-teal-600 text-white rounded-tr-none shadow-xs'
+                            ? 'bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-slate-700/80 shadow-xs'
+                            : 'bg-teal-600 text-white rounded-tr-none shadow-xs text-xs sm:text-sm whitespace-pre-wrap'
                         }`}
                       >
-                        {m.text}
+                        {isBot ? <FormattedAiMessage content={m.text} /> : m.text}
                       </div>
 
                       <div className="flex items-center space-x-2 mt-1 px-1 text-[10px] text-slate-400">
                         <span>{m.timestamp}</span>
+                        {isBot && m.source?.startsWith('gemini') && (
+                          <span className="inline-flex items-center text-teal-700 dark:text-teal-300 font-bold bg-teal-50 dark:bg-teal-950/60 px-1.5 py-0.5 rounded border border-teal-200 dark:border-teal-800">
+                            <Sparkles className="w-2.5 h-2.5 mr-1 text-amber-500 animate-pulse" />
+                            Gemini AI
+                          </span>
+                        )}
+                        {isBot && m.source?.includes('ipdi') && (
+                          <span className="inline-flex items-center text-slate-500 dark:text-slate-400 font-bold bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                            <BookOpen className="w-2.5 h-2.5 mr-1 text-teal-600 dark:text-teal-400" />
+                            Modul IPDI
+                          </span>
+                        )}
                         {isBot && (
                           <button
                             onClick={() => handleCopy(m.id, m.text)}

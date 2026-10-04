@@ -58,11 +58,11 @@ Sediakan 4 pilihan jawaban (A, B, C, D) dan berikan penjelasan rasional klinis l
 
   const userPrompt = `Buatlah tepat ${count} butir soal pilihan ganda baru dengan tingkat kesulitan ${difficulty}. Format jawaban wajib berupa JSON array.`;
 
-  // Attempt live Gemini model with fast 3.5s timeout
+  // Attempt live Gemini model with 15s timeout
   try {
     const response = await Promise.race([
       ai.models.generateContent({
-        model: 'gemini-3.8-flash',
+        model: 'gemini-2.5-flash',
         contents: userPrompt,
         config: {
           systemInstruction: systemPrompt,
@@ -90,7 +90,7 @@ Sediakan 4 pilihan jawaban (A, B, C, D) dan berikan penjelasan rasional klinis l
           },
         },
       }),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('API Timeout 3.5s')), 3500))
+      new Promise((_, reject) => setTimeout(() => reject(new Error('API Timeout 15s')), 15000))
     ]) as any;
 
     const outputText = response?.text || '[]';
@@ -135,7 +135,7 @@ app.post('/api/chat-ai', async (req, res) => {
       .join('\n\n');
 
     const systemInstruction = `Anda adalah "Asisten Ahli Klinis Dialisis IPDI" (Ikatan Perawat Dialisis Indonesia).
-Peran Anda adalah membantu perawat dialisis memahami konsep, prosedur asuhan keperawatan, tabel nilai kritis, dan pedoman resertifikasi perawat dialisis.
+Peran Anda adalah membantu perawat dialisis memahami konsep, prosedur asuhan keperawatan, tabel nilai kritis, patofisiologi mendalam, dan pedoman resertifikasi perawat dialisis.
 
 BATASAN KETAT RUANG LINGKUP (STRICT BOUNDARY):
 1. Anda HANYA diperkenankan menjawab pertanyaan yang berkaitan langsung dengan materi "Modul Resertifikasi Perawat Dialisis Indonesia PP IPDI 2021" yang mencakup 9 Bab berikut:
@@ -143,13 +143,16 @@ ${ipdiKnowledgeBase}
 
 2. ATURAN PENOLAKAN PERTANYAAN DI LUAR MODUL:
 Jika pengguna menanyakan topik di luar dialisis, ginjal, keperawatan nefrologi, atau di luar cakupan 9 Bab modul IPDI di atas (contoh: topik politik, resep masakan, koding/teknologi umum, otomotif, penyakit organ lain yang tidak terkait ginjal/dialisis, lelucon, atau pengetahuan umum), Anda WAJIB MENOLAK SECARA RAMAH DAN MENGARAHKAN KEMBALI, contoh:
-"Mohon maaf, sebagai Asisten Khusus Modul IPDI, saya hanya dapat menjawab pertanyaan seputar materi hemodialisis, CAPD, akses vaskuler, komplikasi dialisis, dan pengolahan air sesuai Modul Resertifikasi Perawat Dialisis Indonesia PP IPDI 2021. Silakan ajukan pertanyaan seputar materi dialisis."
+"Mohon maaf Ners, sebagai Asisten Khusus Modul IPDI, saya hanya dapat menjawab pertanyaan seputar materi hemodialisis, CAPD, akses vaskuler, komplikasi dialisis, dan pengolahan air sesuai Modul Resertifikasi Perawat Dialisis Indonesia PP IPDI 2021. Silakan ajukan pertanyaan seputar materi dialisis."
 
-3. FORMAT JAWABAN:
-- Gunakan bahasa Indonesia profesional keperawatan klinis.
-- Sajikan jawaban yang terstruktur (gunakan poin/bullet bila perlu).
-- Jelaskan rasional patofisiologis dan tindakan keperawatan yang tepat.
-- Selalu sertakan rujukan bab modul terkait di akhir jawaban (contoh: "📚 Rujukan: Modul IPDI 2021 - Bab 3: Asuhan Keperawatan Intra HD").`;
+3. ATURAN FORMAT PENULISAN (MARKDOWN FORMATTING):
+- Tuliskan jawaban yang berbobot, mendalam, dan langsung menjawab esensi pertanyaan secara komprehensif.
+- Gunakan **Tebal (Bold)** untuk istilah penting, angka kritis, batas nilai laboratorium, dan tindakan prioritas keperawatan.
+- Gunakan *Miring (Italic)* untuk istilah patofisiologi, bahasa medis latin/asing (misal: *air lock*, *bruit*, *thrill*, *urea rebound*, *plasma refilling rate*).
+- Gunakan heading (###) untuk memecah bagian penjelasan agar hierarkis dan nyaman dibaca.
+- Gunakan nomor berurutan (1., 2., 3.) untuk langkah-langkah penanganan darurat atau kriteria terstruktur.
+- Gunakan bullet (•) untuk poin-poin fitur atau daftar pendukung.
+- Selalu sertakan rujukan bab modul terkait di akhir jawaban (contoh: "📚 Rujukan: Modul IPDI 2021 - Bab 3: Asuhan Keperawatan Intra HD (Hal. 71)").`;
 
     // Construct conversation contents
     const contents: any[] = [];
@@ -166,29 +169,39 @@ Jika pengguna menanyakan topik di luar dialisis, ginjal, keperawatan nefrologi, 
       parts: [{ text: message }],
     });
 
-    try {
-      const response = await Promise.race([
-        ai.models.generateContent({
-          model: 'gemini-3.8-flash',
-          contents,
-          config: {
-            systemInstruction,
-            temperature: 0.5,
-          },
-        }),
-        new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout 2s')), 2000))
-      ]) as any;
+    // Multi-model cascade: Try gemini-2.5-flash first (available quota), followed by other flash variants
+    const candidateModels = [
+      'gemini-2.5-flash',
+      'gemini-3.5-flash',
+      'gemini-3.1-flash-lite',
+      'gemini-flash-latest',
+    ];
 
-      const reply = response?.text;
-      if (reply) {
-        return res.json({
-          success: true,
-          source: 'gemini-3.8-flash',
-          reply: reply.trim(),
-        });
+    for (const model of candidateModels) {
+      try {
+        const response = await Promise.race([
+          ai.models.generateContent({
+            model,
+            contents,
+            config: {
+              systemInstruction,
+              temperature: 0.6,
+            },
+          }),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout 25s')), 25000))
+        ]) as any;
+
+        const reply = response?.text;
+        if (reply && reply.trim().length > 0) {
+          return res.json({
+            success: true,
+            source: model,
+            reply: reply.trim(),
+          });
+        }
+      } catch (apiErr: any) {
+        console.warn(`Model ${model} attempt had error (${apiErr?.message || apiErr}), trying next candidate...`);
       }
-    } catch (apiErr: any) {
-      console.warn('Chat AI Gemini live call transient failure or 503 spike, using IPDI clinical answer engine:', apiErr?.message || apiErr);
     }
 
     // Instant clinical answer engine strictly grounded in IPDI 2021 module
