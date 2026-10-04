@@ -163,6 +163,48 @@ export const chapters1to3: Chapter[] = [
         correctIndex: 2,
         explanation: 'High-Flux dialyzer memiliki Kuf > 15 ml/jam/mmHg atau klirens beta-2 mikroglobulin > 20 ml/menit, sehingga mampu membuang molekul sedang-besar.',
         referencePage: 'Modul Hal. 24 & 31'
+      },
+      {
+        id: 'q1-6',
+        chapterId: 1,
+        question: 'Berapakah persentase curah jantung (Cardiac Output) yang disalurkan ke ginjal dalam kondisi normal melalui arteri renalis?',
+        options: [
+          '5 - 10%',
+          '10 - 15%',
+          '20 - 25%',
+          '40 - 50%'
+        ],
+        correctIndex: 2,
+        explanation: 'Ginjal menerima 20% sampai 25% dari Cardiac Output (curah jantung) melalui arteri renalis yang berasal langsung dari aorta abdominalis.',
+        referencePage: 'Modul Hal. 2 & 7'
+      },
+      {
+        id: 'q1-7',
+        chapterId: 1,
+        question: 'Bagian manakah dari tubulus nefron yang sangat permeabel terhadap air namun kedap ion sehingga meningkatkan osmolaritas cairan hingga 1200 mOsm/L?',
+        options: [
+          'Tubulus kontortus proksimal',
+          'Lengkung Henle pars desenden (bagian menurun)',
+          'Lengkung Henle pars asenden (bagian menaik)',
+          'Tubulus kontortus distal'
+        ],
+        correctIndex: 1,
+        explanation: 'Bagian menurun (pars desenden) dari lengkung Henle sangat permeabel terhadap air tapi sangat kedap ion, menyebabkan sejumlah besar air diserap kembali dan meningkatkan osmolaritas hingga 1200 mOsm/L.',
+        referencePage: 'Modul Hal. 4'
+      },
+      {
+        id: 'q1-8',
+        chapterId: 1,
+        question: 'Indikasi darurat hemodialisis pada pasien Acute Kidney Injury (AKI) disingkat AEIOUS. Huruf "O" dalam singkatan tersebut merujuk pada:',
+        options: [
+          'Oliguria tanpa gejala sesak',
+          'Overload volume cairan dengan edema paru akut refrakter',
+          'Osteoporosis berat',
+          'Osmolaritas plasma tinggi tanpa edema'
+        ],
+        correctIndex: 1,
+        explanation: 'Huruf "O" merujuk pada Volume Overload (kelebihan volume cairan tubuh) yang memicu edema paru berat (pulmonary oedema) dan tidak responsif terhadap diuretik.',
+        referencePage: 'Modul Hal. 12'
       }
     ]
   },
@@ -306,6 +348,62 @@ export const chapters1to3: Chapter[] = [
         correctIndex: 1,
         explanation: 'Kisaran konduktivitas normal larutan dialisis adalah 12-16 mS/cm (umumnya 13,8 - 14,5 mS/cm). Di luar batas ini mesin akan alarm dan masuk ke bypass mode untuk melindungi darah pasien.',
         referencePage: 'Modul Hal. 57'
+      },
+      {
+        id: 'q2-5',
+        chapterId: 2,
+        question: 'Berapakah jarak minimal antara jarum kanulasi arteri dan vena pada akses AV-Fistula serta jaraknya dari garis anastomosis?',
+        options: [
+          'Jarak antar jarum 1 - 2 cm, dan 1 cm dari anastomosis',
+          'Jarak antar jarum minimal 5 - 7 cm, dan minimal 3 cm di atas anastomosis',
+          'Jarak antar jarum minimal 15 cm, dan tepat di atas luka sayatan operasi',
+          'Bebas diletakkan bersebelahan tanpa batasan jarak'
+        ],
+        correctIndex: 1,
+        explanation: 'Jarak antara jarum inlet (arteri) dan outlet (vena) minimal 5-7 cm untuk mencegah resirkulasi darah yang sudah dibersihkan, dan berjarak minimal 3 cm di atas anastomosis agar tidak merusak sambungan bedah.',
+        referencePage: 'Modul Hal. 43'
+      },
+      {
+        id: 'q2-6',
+        chapterId: 2,
+        question: 'Berapakah sudut penusukan jarum fistula yang direkomendasikan pada akses AV-Fistula (AVF) asli dan AV-Graft (AVG) sintetik?',
+        options: [
+          'AVF 10 derajat, AVG 20 derajat',
+          'AVF 20 - 25 derajat, AVG 45 derajat',
+          'AVF 60 derajat, AVG 90 derajat',
+          'AVF 45 derajat, AVG 15 derajat'
+        ],
+        correctIndex: 1,
+        explanation: 'Secara umum sudut penusukan jarum fistula untuk AVF asli adalah 20-25 derajat, sedangkan untuk graft vaskuler sintetik (AVG) adalah 45 derajat.',
+        referencePage: 'Modul Hal. 43'
+      },
+      {
+        id: 'q2-7',
+        chapterId: 2,
+        question: 'Seorang pasien mengeluh tangan kiri terasa dingin, baal, kesemutan hebat, dan pucat pada jari-jari distal setelah operasi pembuatan AV-Shunt. Kondisi klinis ini mengindikasikan komplikasi:',
+        options: [
+          'Sindrom Disekuilibrium Dialisis',
+          'Arterial Steal Syndrome (ASS)',
+          'Hipertensi Vena Murni',
+          'First Use Syndrome'
+        ],
+        correctIndex: 1,
+        explanation: 'Arterial Steal Syndrome terjadi saat aliran darah arteri tercuri masuk ke vena anastomosis, menyebabkan hipoperfusi dan iskemia jaringan jari-jari tangan distal dengan keluhan dingin, nyeri, dan parestesia.',
+        referencePage: 'Modul Hal. 47'
+      },
+      {
+        id: 'q2-8',
+        chapterId: 2,
+        question: 'Bahan membran dialiser manakah di bawah ini yang tergolong polimer sintetis (synthetic) dengan tingkat biokompatibilitas tinggi?',
+        options: [
+          'Cuprophane dan Cuprammonium rayon',
+          'Polysulfone (PS) dan Polyacrylonitrile (PAN)',
+          'Regenerated cellulose murni',
+          'Cellulose triacetate primer'
+        ],
+        correctIndex: 1,
+        explanation: 'Membran sintetik meliputi Polysulfone (PS), Polyacrylonitrile (PAN), Polycarbonate (PC), Polyamide (PA), dan PMMA yang memiliki biokompatibilitas paling baik dibanding cellulose murni.',
+        referencePage: 'Modul Hal. 31'
       }
     ]
   },
@@ -439,6 +537,62 @@ export const chapters1to3: Chapter[] = [
         correctIndex: 1,
         explanation: 'Tekanan vena (Venous Pressure) memonitor resistensi darah yang kembali dari dialiser ke tubuh pasien. Kenaikan tinggi disebabkan sumbatan/clotting di bubble trap vena, selang terlipat (kinking), atau jarum vena tertutup/stenosis.',
         referencePage: 'Modul Hal. 55 & 56'
+      },
+      {
+        id: 'q3-5',
+        chapterId: 3,
+        question: 'Di manakah lokasi penyuntikan infus antikoagulan heparin kontinu yang tepat pada sirkuit darah hemodialisis untuk mencegah risiko komplikasi emboli udara?',
+        options: [
+          'Pada segmen selang pra-pompa darah (tekanan negatif)',
+          'Pada segmen bertekanan positif sirkuit darah (pasca-pompa darah, pra-dialiser)',
+          'Langsung ke dalam cairan dialisat bikarbonat',
+          'Pada selang venous bubble trap setelah dialiser'
+        ],
+        correctIndex: 1,
+        explanation: 'Heparin diinfuskan ke segmen bertekanan positif (pasca-pompa; pra-dialiser). Jika diinfuskan pra-pompa pada segmen tekanan negatif dapat menyedot udara dan memicu emboli udara.',
+        referencePage: 'Modul Hal. 54'
+      },
+      {
+        id: 'q3-6',
+        chapterId: 3,
+        question: 'Seorang pasien hemodialisis mengalami penurunan tekanan darah sistolik sebesar 35 mmHg disertai keringat dingin, menguap, dan kram perut. Tindakan keperawatan pertama yang paling tepat adalah:',
+        options: [
+          'Menaikkan laju ultrafiltrasi (UFR) agar cairan cepat terbuang',
+          'Posisikan pasien datar/Trendelenburg, matikan UFR, dan berikan bolus NaCl 0,9% 100 - 200 mL',
+          'Berikan obat antihipertensi sublingual segera',
+          'Tingkatkan kecepatan pompa darah ke 350 ml/menit'
+        ],
+        correctIndex: 1,
+        explanation: 'Penatalaksanaan awal hipotensi intradialisis: posisikan pasien datar/kaki ditinggikan, turunkan/matikan laju UFR, berikan bolus salin normal 100-200 mL, lalu evaluasi tanda vital.',
+        referencePage: 'Modul Hal. 61'
+      },
+      {
+        id: 'q3-7',
+        chapterId: 3,
+        question: 'Pada komplikasi Heparin-Induced Thrombocytopenia (HIT) Tipe II yang termediasi respon imun antibodi kompleks heparin-trombosit, alternatif antikoagulasi yang disarankan adalah:',
+        options: [
+          'Mengganti dengan heparin dosis dua kali lipat',
+          'Dialisis non-heparin (free heparin) atau antikoagulan sitrat regional',
+          'Memberikan transfusi trombosit tanpa menghentikan heparin',
+          'Menambahkan aspirin dosis tinggi ke dalam sirkuit'
+        ],
+        correctIndex: 1,
+        explanation: 'Pada HIT Tipe II, semua heparin harus dihentikan segera dan dialihkan ke dialisis non-heparin atau antikoagulan sitrat regional / direct thrombin inhibitor untuk mencegah trombosis fatal.',
+        referencePage: 'Modul Hal. 64'
+      },
+      {
+        id: 'q3-8',
+        chapterId: 3,
+        question: 'Alarm kebocoran darah (Blood Leak Detector) berbunyi dan terlihat bercak darah nyata pada selang dialisat yang keluar dari dialiser (Major Leak). Tindakan perawat adalah:',
+        options: [
+          'Meneruskan dialisis dan membilas sirkuit dengan heparin',
+          'Segera hentikan dialisis, buang semua darah pada sirkuit dan dialiser, ganti dengan dialiser dan blood line baru',
+          'Membalik selang arteri dan vena',
+          'Menaikkan suhu dialisat ke 42 derajat Celcius'
+        ],
+        correctIndex: 1,
+        explanation: 'Pada Major Blood Leak, dialisis harus segera dihentikan, seluruh darah pada sirkuit dan dialiser dibuang (karena risiko kontaminasi dialisat non-steril ke darah), dan pasang dialiser serta sirkuit baru.',
+        referencePage: 'Modul Hal. 58 & 70'
       }
     ]
   }

@@ -125,6 +125,62 @@ export const chapters4to6: Chapter[] = [
         correctIndex: 2,
         explanation: 'URR = [(Ureum Pre - Ureum Post) / Ureum Pre] × 100% = [(200 - 50) / 200] × 100% = (150 / 200) × 100% = 75%.',
         referencePage: 'Modul Hal. 77 & 79'
+      },
+      {
+        id: 'q4-4',
+        chapterId: 4,
+        question: 'Berapakah target minimal Weekly Standard Kt/V (stdKt/V) per minggu yang direkomendasikan KDOQI untuk mencerminkan kecukupan dosis dialisis?',
+        options: [
+          'Minimal 1,0 per minggu',
+          'Minimal 1,4 per minggu',
+          'Minimal 2,0 per minggu',
+          'Minimal 3,5 per minggu'
+        ],
+        correctIndex: 2,
+        explanation: 'Rekomendasi KDOQI untuk nilai minimum stdKt/V adalah 2,0 per minggu, yang ekuivalen dengan nilai spKt/V 1,2 pada setiap sesi dengan frekuensi HD 3 kali seminggu.',
+        referencePage: 'Modul Hal. 77 & 81'
+      },
+      {
+        id: 'q4-5',
+        chapterId: 4,
+        question: 'Pada protokol pengambilan sampel darah ureum post-HD, berapakah kecepatan pompa darah (Qb) yang diturunkan dan berapa lama jeda waktunya sebelum darah diambil?',
+        options: [
+          'Qb 50 ml/menit selama 5 menit',
+          'Qb 100 ml/menit selama 10 - 20 detik',
+          'Qb 200 ml/menit selama 1 menit',
+          'Langsung dimatikan tanpa menurunkan kecepatan Qb'
+        ],
+        correctIndex: 1,
+        explanation: 'Protokol post-HD KDOQI: set UF menjadi 0, turunkan Qb ke 100 ml/menit selama 10-20 detik untuk membilas resirkulasi akses fistula, baru sampel diambil dari arterial line.',
+        referencePage: 'Modul Hal. 80 & 84'
+      },
+      {
+        id: 'q4-6',
+        chapterId: 4,
+        question: 'Manakah faktor teknis berikut yang dapat menyebabkan hasil adekuasi hemodialisis pasien lebih rendah dari target yang diresepkan (under-dialysis)?',
+        options: [
+          'Luas permukaan membran dialiser yang terlalu besar',
+          'Resirkulasi pada akses vaskuler akibat jarak penusukan jarum terlalu dekat',
+          'Kecepatan aliran dialisat dinaikkan ke 800 ml/menit',
+          'Durasi dialisis diperpanjang 30 menit'
+        ],
+        correctIndex: 1,
+        explanation: 'Penyebab klirens urea rendah: resirkulasi akses vaskuler (jarum A dan V terlalu dekat), aliran darah dari akses tidak adekuat, bekuan darah di dialiser, dan waktu dialisis yang terpotong.',
+        referencePage: 'Modul Hal. 79 & 83'
+      },
+      {
+        id: 'q4-7',
+        chapterId: 4,
+        question: 'Di manakah jalur pengambilan sampel darah untuk mengukur konsentrasi ureum post-dialisis yang tepat?',
+        options: [
+          'Dari selang infus NaCl',
+          'Dari sampling port pada Arterial Blood Line (ABL)',
+          'Dari sampling port pada Venous Blood Line (VBL)',
+          'Dari botol penampungan cairan dialisat buangan'
+        ],
+        correctIndex: 1,
+        explanation: 'Sampel darah ureum post-dialisis diambil dari jalur inlet darah arteri (Arterial line / ABL) setelah melewati teknik perlambatan pompa 100 ml/mnt selama 10-20 detik.',
+        referencePage: 'Modul Hal. 80 & 84'
       }
     ]
   },
@@ -245,6 +301,62 @@ export const chapters4to6: Chapter[] = [
         correctIndex: 1,
         explanation: 'Suhu dialisat pada SLED diatur lebih rendah (35 - 36°C) untuk merangsang tonus vasokonstriksi vaskuler perifer sehingga menjaga tekanan darah pasien tetap stabil.',
         referencePage: 'Modul Hal. 88'
+      },
+      {
+        id: 'q5-4',
+        chapterId: 5,
+        question: 'Berapakah durasi waktu dialisis yang umum dijalankan pada modalitas hibrida Sustained Low Efficiency Dialysis (SLED)?',
+        options: [
+          '2 - 3 jam',
+          '3 - 4 jam',
+          '6 - 12 jam (atau semalam / overnight)',
+          '24 jam tanpa henti'
+        ],
+        correctIndex: 2,
+        explanation: 'Lamanya dialisis SLED berkisar antara 6 sampai 12 jam. Waktu yang lebih panjang memungkinkan efisiensi klirens memadai dengan laju penarikan cairan (UFR) yang sangat lambat dan aman.',
+        referencePage: 'Modul Hal. 85 & 89'
+      },
+      {
+        id: 'q5-5',
+        chapterId: 5,
+        question: 'Apakah tujuan utama dilakukannya Sodium Profiling (natrium dialisat yang lebih tinggi di awal sesi) pada prosedur SLED pasien kritis?',
+        options: [
+          'Memicu rasa haus yang hebat',
+          'Menarik cairan dari ruang ekstravaskuler ke intravaskuler secara difusi osmotik guna mempertahankan volume plasma saat ultrafiltrasi',
+          'Menghilangkan bekuan di dialiser',
+          'Menurunkan kadar kalium serum secara drastis'
+        ],
+        correctIndex: 1,
+        explanation: 'Dengan natrium yang lebih tinggi, natrium berpindah ke darah dan meningkatkan osmolaritas plasma, menarik cairan ekstravaskuler masuk ke intravaskuler sehingga volume darah dan tensi tetap terjaga.',
+        referencePage: 'Modul Hal. 87 & 91'
+      },
+      {
+        id: 'q5-6',
+        chapterId: 5,
+        question: 'Berapakah laju ultrafiltrasi (UFR) awal yang dianjurkan bila kondisi hemodinamik pasien di ICU sangat tidak stabil pada awal sesi SLED?',
+        options: [
+          'Sangat rendah yaitu 0 - 100 cc/jam',
+          '300 - 500 cc/jam',
+          '800 - 1000 cc/jam',
+          'Langsung dimaksimalkan ke 1500 cc/jam'
+        ],
+        correctIndex: 0,
+        explanation: 'Bila kondisi pasien sangat tidak stabil, UFR dimulai sangat rendah (0 - 100 cc/jam) baru kemudian dinaikkan perlahan setelah respon tekanan darah pasien lebih stabil.',
+        referencePage: 'Modul Hal. 86 & 90'
+      },
+      {
+        id: 'q5-7',
+        chapterId: 5,
+        question: 'Menurut penelitian klinis Flieser & Kielstein (2004), efisiensi klirens solut dari SLED yang dijalankan selama 12 jam terbukti setara dengan:',
+        options: [
+          'Hemodialisis konvensional 2 jam',
+          'Continuous Veno-Venous Hemofiltration (CVVH) yang dilakukan selama 24 jam penuh',
+          'Peritoneal dialisis selama 3 hari',
+          'Pemberian furosemid infus kontinu'
+        ],
+        correctIndex: 1,
+        explanation: 'Flieser & Kielstein (2004) membuktikan bahwa tindakan SLED selama 12 jam per hari memiliki efisiensi bersihan toksin yang setara dengan teknik CVVH yang berlangsung 24 jam terus menerus.',
+        referencePage: 'Modul Hal. 85 & 89'
       }
     ]
   },
@@ -402,6 +514,62 @@ export const chapters4to6: Chapter[] = [
         correctIndex: 2,
         explanation: 'Perkalian produk Ca × P di atas 55 mg²/dL² dapat mengakibatkan presipitasi garam kalsium fosfat (metastatic calcification) di tunika media pembuluh darah besar dan miokardium.',
         referencePage: 'Modul Hal. 120 & 124'
+      },
+      {
+        id: 'q6-5',
+        chapterId: 6,
+        question: 'Berapakah kebutuhan asupan protein harian yang direkomendasikan pada pasien gagal ginjal kronik stadium 5 yang menjalani hemodialisis pemeliharaan?',
+        options: [
+          '0,6 - 0,8 g/kgBB/hari',
+          '1,2 ± 0,2 g/kgBB/hari (minimal 50% bernilai biologis tinggi)',
+          '2,5 - 3,0 g/kgBB/hari',
+          'Bebas tanpa pembatasan jenis makanan'
+        ],
+        correctIndex: 1,
+        explanation: 'Kebutuhan protein pasien hemodialisis diperkirakan 1,2 ± 0,2 g/kg/hari karena kehilangan asam amino selama dialisis (4-9 gram/sesi), dengan 50% berasal dari protein bernilai biologis tinggi (daging, telur, ikan).',
+        referencePage: 'Modul Hal. 127 & 131'
+      },
+      {
+        id: 'q6-6',
+        chapterId: 6,
+        question: 'Syarat kecukupan cadangan besi (iron store) sebelum terapi hormon eritropoietin (ESA) dimulai pada pasien hemodialisis adalah:',
+        options: [
+          'Saturasi transferin < 10% dan feritin < 50 ng/mL',
+          'Saturasi transferin (ST) > 20% dan serum feritin > 200 ng/mL',
+          'Hemoglobin sudah normal di atas 14 g/dL',
+          'Hematokrit di bawah 20%'
+        ],
+        correctIndex: 1,
+        explanation: 'Sebelum terapi ESA, status besi harus cukup: saturasi transferin > 20% dan serum feritin > 200 ug/L (ng/mL) pada pasien dialisis. Bila ada defisiensi besi absolut harus dikoreksi terlebih dahulu.',
+        referencePage: 'Modul Hal. 113 & 117'
+      },
+      {
+        id: 'q6-7',
+        chapterId: 6,
+        question: 'Pasien hemodialisis sering mengalami gatal hebat (pruritus uremik). Manakah faktor yang menjadi penyebab utama menurut literatur modul IPDI?',
+        options: [
+          'Alergi terhadap makanan pedas',
+          'Kulit kering (dehidrasi stratum korneum & atrofi kelenjar keringat), hiperfosfatemia, dan hiperparatiroidisme sekunder',
+          'Kurangnya konsumsi vitamin C dosis tinggi',
+          'Penggunaan jarum fistula berukuran 16G'
+        ],
+        correctIndex: 1,
+        explanation: 'Penyebab utama pruritus uremik: kulit kering akibat atrofi kelenjar keringat dan dehidrasi stratum korneum, retensi fosfor tinggi, hiperparatiroidisme sekunder, dan penumpukan racun uremik.',
+        referencePage: 'Modul Hal. 65 & 69'
+      },
+      {
+        id: 'q6-8',
+        chapterId: 6,
+        question: 'Fenomena klinis di mana pasien gagal ginjal kronik yang menjalani dialisis dengan berat badan berlebih (overweight/obesitas) justru memiliki angka harapan hidup lebih tinggi disebut:',
+        options: [
+          'Disequilibrium paradox',
+          'Obesity paradox',
+          'Reverse osmosis paradox',
+          'Uremic rebound syndrome'
+        ],
+        correctIndex: 1,
+        explanation: 'Pada penderita PGK dengan dialisis terjadi fenomena "obesity paradox", di mana pasien dengan BMI 25-30 dan >30 memiliki survival lebih tinggi dibanding pasien dengan BMI rendah (<19 kg/m²).',
+        referencePage: 'Modul Hal. 164 & 168'
       }
     ]
   }

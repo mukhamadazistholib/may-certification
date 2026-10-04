@@ -123,6 +123,76 @@ export const chapters7to9: Chapter[] = [
         correctIndex: 2,
         explanation: 'Menurut pedoman adekuasi PD modul IPDI, target Kt/Vurea mingguan minimal adalah 1,7 per minggu. Nilai < 1,7 berkorelasi kuat dengan peningkatan risiko komplikasi dan mortalitas.',
         referencePage: 'Modul Hal. 159 & 164'
+      },
+      {
+        id: 'q7-4',
+        chapterId: 7,
+        question: 'Mengapa arah lubang keluar (exit-site) kateter Tenckhoff pada operasi CAPD sebaiknya diarahkan menghadap ke bawah (downward)?',
+        options: [
+          'Agar cairan masuk lebih cepat saat infus',
+          'Untuk menurunkan risiko infeksi mikroorganisme dan mencegah keringat menumpuk di area insersi',
+          'Agar selang kateter tidak terlihat oleh orang lain',
+          'Untuk mempermudah pelepasan jahitan kulit'
+        ],
+        correctIndex: 1,
+        explanation: 'Arah exit-site kateter sebaiknya mengarah ke bawah (downward) untuk menurunkan risiko infeksi bakteri dari kulit dan gravitasi membantu menjaga lubang tetap kering.',
+        referencePage: 'Modul Hal. 151 & 155'
+      },
+      {
+        id: 'q7-5',
+        chapterId: 7,
+        question: 'Berapakah jumlah kehilangan protein rata-rata melalui cairan dialisat per hari pada pasien yang menjalani terapi CAPD?',
+        options: [
+          'Hanya 0,5 gram per hari',
+          'Rata-rata 4 sampai 9 gram per hari (meningkat drastis bila peritonitis)',
+          '25 sampai 30 gram per hari',
+          'Tidak terjadi kehilangan protein sama sekali'
+        ],
+        correctIndex: 1,
+        explanation: 'Pasien CAPD kehilangan protein dialisat rata-rata 4 - 9 gram/hari (sekitar 9 g/hari pada literatur modul). Karena itu kebutuhan protein pasien CAPD lebih tinggi (1,2 - 1,3 g/kgBB/hari).',
+        referencePage: 'Modul Hal. 129 & 161'
+      },
+      {
+        id: 'q7-6',
+        chapterId: 7,
+        question: 'Karakteristik pasien dengan tipe membran "High Transporter" pada uji Peritoneal Equilibrium Test (PET) adalah:',
+        options: [
+          'Klirens solut sangat lambat dan cairan tidak pernah keluar',
+          'Klirens zat terlarut sangat cepat, namun cepat kehilangan daya ultrafiltrasi bila waktu dwell terlalu lama karena glukosa cepat terserap',
+          'Sangat tahan terhadap komplikasi infeksi peritonitis',
+          'Tidak membutuhkan cairan dialisat dekstrosa'
+        ],
+        correctIndex: 1,
+        explanation: 'Tipe High Transporter memindahkan urea/kreatinin dengan cepat, tetapi gradien osmotik glukosa cepat hilang karena glukosa terserap ke darah, sehingga jika waktu tinggal (dwell) terlalu lama cairan justru diserap kembali ke tubuh.',
+        referencePage: 'Modul Hal. 160 & 164'
+      },
+      {
+        id: 'q7-7',
+        chapterId: 7,
+        question: 'Tindakan awal perawat apabila cairan dialisat yang keluar dari rongga perut pasien CAPD berwarna merah bercampur darah (hemoperitoneum) adalah:',
+        options: [
+          'Segera lakukan laparotomi eksplorasi cito',
+          'Lakukan pembilasan (flushing) dengan cairan dialisat suhu kamar dan berikan heparin intraperitoneal bila tampak bekuan fibrin',
+          'Tutup kateter dan hentikan dialisis selama 1 minggu',
+          'Berikan transfusi whole blood 2 kantong'
+        ],
+        correctIndex: 1,
+        explanation: 'Bila terjadi hemoperitoneum, lakukan pembilasan segera dan tambahkan heparin intraperitoneal ke kantong dialisat untuk mencegah terbentuknya bekuan fibrin yang menyumbat lumen kateter.',
+        referencePage: 'Modul Hal. 156 & 160'
+      },
+      {
+        id: 'q7-8',
+        chapterId: 7,
+        question: 'Kapan inisiasi dialisis peritoneal rutin (pengisian penuh) idealnya dimulai setelah tindakan pembedahan pemasangan kateter Tenckhoff?',
+        options: [
+          'Langsung 2 jam pascaoperasi',
+          'Hari ke-3 pascaoperasi',
+          '2 minggu pasca implantasi kateter setelah luka dan cuff menyatu',
+          'Minimal 3 bulan pascaoperasi'
+        ],
+        correctIndex: 2,
+        explanation: 'Inisiasi PD disarankan 2 minggu pasca implantasi kateter untuk memastikan jaringan ikat tumbuh melekat sempurna pada dacron cuff sehingga mencegah kebocoran cairan dan hernia.',
+        referencePage: 'Modul Hal. 152 & 156'
       }
     ]
   },
@@ -250,6 +320,62 @@ export const chapters7to9: Chapter[] = [
         correctIndex: 3,
         explanation: 'Sebelum dialiser digunakan, buang germisida dengan mengalirkan NaCl 0.9% sebanyak minimal 2000 mL (2 liter), kemudian verifikasi residu bahan kimia dengan test strip sensitif.',
         referencePage: 'Modul Hal. 175 & 179'
+      },
+      {
+        id: 'q8-4',
+        chapterId: 8,
+        question: 'Berapakah besaran tekanan dan durasi waktu yang diberikan pada kompartemen darah saat melakukan uji kebocoran membran dialiser pada tahapan reprocessing?',
+        options: [
+          'Tekanan 0,2 bar selama 10 detik',
+          'Tekanan 1 sampai 2 bar selama kurang lebih 1 menit',
+          'Tekanan 5 bar selama 5 menit',
+          'Tidak perlu diberi tekanan, cukup diobservasi'
+        ],
+        correctIndex: 1,
+        explanation: 'Uji kebocoran membran dilakukan dengan memberikan tekanan 1 - 2 bar pada kompartemen darah selama 1 menit. Jika tekanan turun atau drop ke 0, berarti terjadi robekan membran.',
+        referencePage: 'Modul Hal. 173 & 177'
+      },
+      {
+        id: 'q8-5',
+        chapterId: 8,
+        question: 'Berapakah waktu kontak sterilisasi (contact time) minimal yang diperlukan bila dialiser proses ulang direndam menggunakan germisida asam perasetat (peracetic acid)?',
+        options: [
+          '2 jam',
+          '6 jam',
+          'Minimal 11 jam',
+          'Minimal 24 jam'
+        ],
+        correctIndex: 2,
+        explanation: 'Menurut tabel perbandingan germisida di modul IPDI, asam perasetat membutuhkan waktu kontak minimal 11 jam untuk memastikan seluruh mikroba dan spora terinaktivasi sempurna.',
+        referencePage: 'Modul Hal. 174 & 178'
+      },
+      {
+        id: 'q8-6',
+        chapterId: 8,
+        question: 'Penurunan Total Cell Volume (TCV) sebesar 20% pada dialiser proses ulang diperkirakan akan menurunkan klirens kreatinin sebesar:',
+        options: [
+          '1 - 2%',
+          '4 - 11%',
+          '25 - 35%',
+          '50%'
+        ],
+        correctIndex: 1,
+        explanation: 'Penurunan TCV sebesar 20% akan menurunkan klirens kreatinin sebesar 4 - 11%. Bila penurunan TCV melebihi 20%, dialiser tidak boleh digunakan lagi dan harus dibuang.',
+        referencePage: 'Modul Hal. 173 & 177'
+      },
+      {
+        id: 'q8-7',
+        chapterId: 8,
+        question: 'Manakah informasi berikut yang WAJIB tertera pada label identitas dialiser proses ulang menurut standar operasional IPDI?',
+        options: [
+          'Nama pasien, nomor rekam medis, kode warna, reuse ke berapa, tanggal terakhir reuse, identitas petugas, dan hasil TCV',
+          'Hanya nama pasien dan tanggal lahir saja',
+          'Nama dokter penanggung jawab dan merek mesin HD',
+          'Biaya tindakan hemodialisis dan nama asuransi penjamin'
+        ],
+        correctIndex: 0,
+        explanation: 'Isi label dialiser proses ulang meliputi: nama pasien, no RM, kode warna, frekuensi penggunaan ke berapa, tanggal terakhir reuse, nama/identitas petugas reprocessing, dan hasil pengukuran TCV.',
+        referencePage: 'Modul Hal. 170 & 174'
       }
     ]
   },
@@ -401,6 +527,62 @@ export const chapters7to9: Chapter[] = [
         correctIndex: 2,
         explanation: 'Menurut standar AAMI, bakteri dalam air dialisis tidak boleh melebihi 200 CFU/mL. Jika hasil kultur menunjukkan lebih dari 50 CFU/mL, unit dialisis wajib segera melakukan upaya korektif / desinfeksi.',
         referencePage: 'Modul Hal. 187 & 191'
+      },
+      {
+        id: 'q9-5',
+        chapterId: 9,
+        question: 'Berapakah estimasi total paparan volume air dialisat yang dialirkan ke membran dialiser pada seorang pasien hemodialisis rutin dalam periode 1 tahun?',
+        options: [
+          '500 sampai 1.000 liter',
+          '2.000 sampai 5.000 liter',
+          '18.000 sampai 36.000 liter per tahun',
+          'Lebih dari 100.000 liter'
+        ],
+        correctIndex: 2,
+        explanation: 'Pasien hemodialisis terpapar 270 sampai 576 liter air per minggu, atau mencapai 18.000 hingga 36.000 liter per tahun. Paparan masif inilah yang mewajibkan air dimurnikan secara ketat.',
+        referencePage: 'Modul Hal. 73 & 178'
+      },
+      {
+        id: 'q9-6',
+        chapterId: 9,
+        question: 'Komplikasi klinis yang dikenal sebagai "Hard Water Syndrome" dengan gejala mual, muntah, sakit kepala hebat, dan kulit memerah disebabkan oleh kontaminasi air dialisis oleh:',
+        options: [
+          'Zat klorin bebas',
+          'Kadar ion Kalsium dan Magnesium yang berlebihan',
+          'Bakteri pseudomonas',
+          'Zat nitrat dari pupuk pertanian'
+        ],
+        correctIndex: 1,
+        explanation: 'Jika mineral kalsium dan magnesium masuk berlebih ke tubuh pasien akibat kegagalan water softener, timbul "hard water syndrome" (mual muntah, kram otot, hipertensi/hipotensi).',
+        referencePage: 'Modul Hal. 188 & 192'
+      },
+      {
+        id: 'q9-7',
+        chapterId: 9,
+        question: 'Berapakah batas resistivitas listrik minimal air produk yang dihasilkan oleh sistem Deionisasi (DI tank) yang dapat diterima sebelum alarm mesin berbunyi?',
+        options: [
+          'Lebih besar dari 0,1 megohm/cm',
+          'Lebih besar dari 1,0 megohm/cm (MegaOhm per sentimeter)',
+          'Lebih besar dari 10 megohm/cm',
+          'Cukup 50 ohm/cm'
+        ],
+        correctIndex: 1,
+        explanation: 'Batas resistivitas yang dapat diterima pada sistem DI adalah lebih besar dari 1 megohm/cm. Alarm wajib berbunyi jika resistivitas turun di bawah 1 megohm/cm untuk mencegah pelepasan ion racun.',
+        referencePage: 'Modul Hal. 183 & 186'
+      },
+      {
+        id: 'q9-8',
+        chapterId: 9,
+        question: 'Mengapa pipa distribusi air produk di unit hemodialisis harus dirancang berbentuk lingkaran tertutup (continuous loop) tanpa cabang mati (dead leg)?',
+        options: [
+          'Agar hemat pipa',
+          'Untuk mencegah stagnasi air dan menghambat pembentukan biofilm mikroorganisme',
+          'Agar air dialisat terasa lebih dingin',
+          'Untuk meningkatkan kadar oksigen air'
+        ],
+        correctIndex: 1,
+        explanation: 'Air yang diam memungkinkan bakteri berkembang biak dan membentuk biofilm yang sangat sulit dihilangkan. Saluran pipa loop kontinu menjaga kecepatan alir minimal 3 kaki/detik untuk mencegah kolonisasi kuman.',
+        referencePage: 'Modul Hal. 179 & 184'
       }
     ]
   }
